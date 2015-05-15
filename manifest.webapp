@@ -1,0 +1,22 @@
+{
+  "name": "Japanese Calendar",
+  "description": "A very simple Japanese Calendar.",
+  "version": "1.0",
+  "launch_path": "/index.html",
+  "icons": {
+    "512": "/images/icon512.png",
+    "128": "/images/icon128.png"
+  },
+  "developer": {
+    "name": "ASANO, Naoyuki",
+    "url": "http://multi.nadenade.com/leafy/Mozilla/Calendar/"
+  },
+  "default_locale": "en",
+  "locales": {
+    "ja": {
+      "name": "和暦カレンダー",
+      "description": "非常にシンプルな和暦カレンダーです。"
+    }
+  },
+  "type": "web"
+}

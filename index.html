@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<link rel="icon" href="images/icon128.png">
+<link rel="stylesheet" href="style/style.css">
+<title>和暦カレンダー</title>
+
+</head>
+
+<body>
+
+<p class="flexbox">
+<input id="today" class="button" type="button" value="今日">
+<input id="selectYearMonth" class="button" type="button" value="年月選択">
+<input id="about" class="button" type="button" value="&#x2139;">
+</p>
+
+<div>
+<input id="datePicker" type="date">
+</div>
+
+<p class="flexbox navigationButton">
+<input id="prev" class="button" type="button" value="&#x25C4;">
+<span class="yearMonthBlank"></span>
+<input id="next" class="button" type="button" value="&#x25BA;">
+</p>
+
+<div id="calendar">
+</div>
+
+<div id="aboutDialog">
+<p id="aboutDialogContent"></p>
+<input id="close" class="button" type="button" value="閉じる">
+</div>
+
+<script defer src="scripts/jquery.min.js"></script>
+<script defer src="scripts/HolidayChk.js" charset="Shift_JIS"></script>
+<script defer src="scripts/japaneseCalendar.js"></script>
+
+</body>
+
+</html>

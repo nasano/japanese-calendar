@@ -1,0 +1,215 @@
+/* 全体 */
+
+body {
+  background: #F5F5F5;
+}
+
+/* カレンダー部 */
+
+#calendar {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+/* 年月 */
+
+.yearMonth {
+  font-size: 16pt;
+  width: 100%;
+  height: 1.5em;
+  margin-top: -2em;
+}
+
+/* 1週間の行 */
+
+.row {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* 日付 */
+
+.weekName, .day {
+  border-top: 1px solid #F5F5F5;
+  border-right: 1px solid #EEEEEE;
+  border-bottom: 1px solid #EEEEEE;
+  border-left: 1px solid #F5F5F5;
+  background: #FFFFFF;
+  color: #000000;
+  font-size: 20pt;
+  font-weight: lighter;
+  height: 1.5em;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+/* 曜日名 */
+
+.weekName {
+  border-right: 1px solid #F5F5F5;
+  border-bottom: 1px solid #F5F5F5;
+  background: #DDDDDD;
+  font-size: 12pt;
+  font-weight: normal;
+  height: 1.5em;
+}
+
+/* 日曜日 */
+
+.day0 {
+  color: #FF0000;
+}
+
+/* 月曜日 */
+
+.day1 {
+}
+
+/* 火曜日 */
+
+.day2 {
+}
+
+/* 水曜日 */
+
+.day3 {
+}
+
+/* 木曜日 */
+
+.day4 {
+}
+
+/* 金曜日 */
+
+.day5 {
+}
+
+/* 土曜日 */
+
+.day6 {
+  color: #0000FF;
+}
+
+/* 今日 */
+
+.today {
+  background: #FFFFBB;
+}
+
+/* 休日 */
+
+.holiday {
+  background: #FAB0A2;
+}
+
+/* 休日名 */
+
+.holidayName {
+  text-align: left;
+  font-size: 12pt;
+}
+
+/* 要素を均等に配置する */
+
+.flexbox {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 年月表示用スペース */
+
+.yearMonthBlank {
+  width: 50%;
+}
+
+/* 月送りボタン */
+
+.navigationButton {
+  margin-top: -1em;
+}
+
+/* ボタン */
+
+input.button {
+  border-top: 1px solid #EEEEEE;
+  border-right: 1px solid #AAAAAA;
+  border-bottom: 1px solid #AAAAAA;
+  border-left: 1px solid #EEEEEE;
+  border-radius: 0.2em; 
+  background: #FFFFFF;
+  color: #000000;
+  font-size: 16pt;
+  height: 1.5em;
+}
+
+/* ボタンの横幅 */
+
+input#prev, input#next {
+  width: 15%;
+}
+
+input#today, input#selectYearMonth {
+  width: 44%;
+}
+
+input#about {
+  width: 10%;
+}
+
+/* ボタンにフォーカスがある時の内側の点線を消す */
+
+input.button::-moz-focus-inner {
+  border: none;
+}
+
+/* ボタンが押されている時 */
+
+input.button:active {
+  background: #E0E0E0;
+  padding: 0em;
+}
+
+/* 日時入力欄を消す */
+
+input#datePicker {
+  margin-left: -100%;
+}
+
+/* About ダイアログ */
+
+#aboutDialog {
+  background: #F5F5F5;
+  color: #000000;
+  display: none;
+  position: fixed;
+  overflow: auto;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  text-align: center;
+}
+
+.appIcon {
+  width: 128px;
+  height: 128px;
+}
+
+.appName {
+  font-size: 16pt;
+}
+
+.appHr {
+  border: none;
+  background: #AAAAAA;
+  width: 80%;
+  height: 1px;
+}
+
+input#close {
+  width: 96%;
+  margin: 0.5em 0em;
+}
