@@ -31,6 +31,7 @@ Copyright (C) 2015 ASANO, Naoyuki
 作成者
 ------
 
+[ASANO, Naoyuki](http://multi.nadenade.com/leafy/)  
 ウェブサイト：<http://multi.nadenade.com/leafy/Mozilla/Calendar/>  
 GitHub：<https://github.com/nasano/JapaneseCalendar>  
 Firefox Marketplace：<https://marketplace.firefox.com/app/japanese-calendar>
