@@ -19,14 +19,13 @@
 更新履歴
 --------
 
-### 1.0（2015/05/15リリース）
+### 1.0（2015/5/15リリース）
 
   * 初リリース。
 
 ライセンス
 ----------
 
-Copyright (C) 2015 ASANO, Naoyuki  
 詳しくは LICENSE.md をご覧ください。
 
 作成者
@@ -36,3 +35,5 @@ Copyright (C) 2015 ASANO, Naoyuki
 ウェブサイト：<http://multi.nadenade.com/leafy/Mozilla/Calendar/>  
 GitHub：<https://github.com/nasano/japanese-calendar>  
 Firefox Marketplace：<https://marketplace.firefox.com/app/japanese-calendar>
+
+Copyright (C) 2015 ASANO, Naoyuki All Rights Reserved.
