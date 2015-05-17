@@ -31,8 +31,9 @@
     //
 
     $(target).append('<div class="yearMonth">' + settings.day.getFullYear() +
-                     "年(" + toJapaneseEra(settings.day.getFullYear()) +
-                     "年)" + (settings.day.getMonth() + 1) + "月</div>");
+                     "年" + toJapaneseEra(settings.day.getFullYear(),
+                                          settings.day.getMonth() + 1) +
+                     (settings.day.getMonth() + 1) + "月</div>");
 
     //
     // 曜日を表示
@@ -112,25 +113,41 @@
     // 参考：http://www.openreference.org/articles/view/189
     //
 
-    function toJapaneseEra(year) {
+    function toJapaneseEra(year, month) {
       var jaYear = "";
 
-      if (year == 1989) {
-        jaYear = "平成元";
+      if (year >= 1990) {
+        jaYear = "（平成" + (year - 1988) + "年）";
+      } else if (year == 1989) {
+        if (month >= 1) {
+          jaYear = "（平成元年）";
+        } else {
+          jaYear = "（昭和" + (year - 1925) + "年）";
+        }
+      } else if (year >= 1927) {
+        jaYear = "（昭和" + (year - 1925) + "年）";
       } else if (year == 1926) {
-        jaYear = "昭和元";
+        if (month >= 12) {
+          jaYear = "（昭和元年）";
+        } else {
+          jaYear = "（大正" + (year - 1911) + "年）";
+        }
+      } else if (year >= 1913) {
+        jaYear = "（大正" + (year - 1911) + "年）";
       } else if (year == 1912) {
-        jaYear = "大正元";
+        if (month >= 7) {
+          jaYear = "（大正元年）";
+        } else {
+          jaYear = "（明治" + (year - 1867) + "年）";
+        }
+      } else if (year >= 1869) {
+        jaYear = "（明治" + (year - 1867) + "年）";
       } else if (year == 1868) {
-        jaYear = "明治元";
-      } else if (year > 1988) {
-        jaYear = "平成" + (year - 1988);
-      } else if (year > 1925) {
-        jaYear = "昭和" + (year - 1925);
-      } else if (year > 1911) {
-        jaYear = "大正" + (year - 1911);
-      } else if (year > 1867) {
-        jaYear = "明治" + (year - 1867);
+        if (month >= 1) {
+          jaYear = "（明治元年）";
+        } else {
+          jaYear = "";
+        }
       }
 
       return jaYear;
