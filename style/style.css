@@ -92,16 +92,16 @@ body {
   color: #0000FF;
 }
 
-/* 今日 */
-
-.today {
-  background: #FFFFBB;
-}
-
 /* 休日 */
 
 .holiday {
   background: #FAB0A2;
+}
+
+/* 今日 */
+
+.today {
+  background: #FFFFBB;
 }
 
 /* 休日名 */
