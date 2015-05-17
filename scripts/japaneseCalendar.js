@@ -228,8 +228,8 @@ $(document).ready(function() {
         $("#aboutDialogContent").empty();
         $("#aboutDialogContent").append('<p><img class="appIcon" src="' +
                                         manifest.icons[512] + '"></p>');
-        $("#aboutDialogContent").append('<p class="appName">' +
-                                        manifest.locales.ja.name + "</p>");
+        $("#aboutDialogContent").append('<p class="appName">' + manifest.name +
+                                        "</p>");
         $("#aboutDialogContent").append('<hr class="appHr">');
         $("#aboutDialogContent").append("<p>バージョン: " + manifest.version +
                                         "</p>");
