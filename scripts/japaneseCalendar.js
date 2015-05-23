@@ -268,6 +268,9 @@ $(document).ready(function() {
     // 日付入力欄の値を取得
     var selectDate = new Date($("#datePicker").val());
 
+    // ハイフンで区切られた日付だと GMT+9 になるので修正
+    selectDate.setHours(0, 0, 0);
+
     monthOffset = (selectDate.getFullYear() - new Date().getFullYear()) * 12;
     monthOffset += selectDate.getMonth() - new Date().getMonth();
     settings.day = selectDate;
