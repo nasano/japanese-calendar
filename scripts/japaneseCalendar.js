@@ -97,7 +97,7 @@
 
     var holidays = "";
 
-    for (var i = 1, lastDay = lastDate.getDate(); i < lastDay; i++) {
+    for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
       var day = new Date(new Date(settings.day.getTime()).setDate(i));
       var holidayName = ktHolidayName(day);
 
@@ -119,7 +119,7 @@
 
     var days24sekki = "";
 
-    for (var i = 1, lastDay = lastDate.getDate(); i < lastDay; i++) {
+    for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
       var day = new Date(new Date(settings.day.getTime()).setDate(i));
       var name24sekki = check24sekki(day);
 
@@ -133,6 +133,29 @@
       days24sekki = '<div class="head24sekki">二十四節気</div>' +
                     '<div class="body24sekki">' + days24sekki + "</div>";
       $(dayList).append(days24sekki);
+    }
+
+    //
+    // 年中行事一覧を表示
+    //
+
+    var annualFunctions = "";
+
+    for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
+      var day = new Date(new Date(settings.day.getTime()).setDate(i));
+      var annualFunctionName = checkAnnualFunction(day);
+
+      if (annualFunctionName != "") {
+        annualFunctions += i + "(" + settings.weekName[day.getDay()] + ") " +
+                           annualFunctionName + "<br>";
+      }
+    }
+
+    if (annualFunctions != "") {
+      annualFunctions = '<div class="annualFunctionHead">年中行事</div>' +
+                        '<div class="annualFunctionBody">' + annualFunctions +
+                        "</div>";
+      $(dayList).append(annualFunctions);
     }
 
     $(target).append(dayList);
@@ -218,6 +241,108 @@
       } else {
         return "";
       }
+    }
+
+    //
+    // 年中行事の判定
+    //
+
+    function checkAnnualFunction(date) {
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+      var annualFunctionName = "";
+
+      switch (month) {
+        case 1:
+          if (day == 7) {
+            annualFunctionName = "七草";
+          } else if (day == 11) {
+            annualFunctionName = "鏡開き";
+          }
+          break;
+        case 2:
+          if (day == 14) {
+            annualFunctionName = "バレンタインデー";
+          } else {
+            // 立春を求める
+            var risshun = 0;
+            var lastDate = new Date(year, month + 1, 0);
+            for (var i = 1, lastDay = lastDate.getDate(); i < lastDay; i++) {
+              var theDay = new Date(new Date(date.getTime()).setDate(i));
+              if (check24sekki(theDay) == "立春") {
+                risshun = i;
+                break;
+              }
+            }
+
+            if (day == risshun - 1) {
+              annualFunctionName = "節分";
+            }
+          }
+          break;
+        case 3:
+          if (day == 3) {
+            annualFunctionName = "雛祭り(桃の節句)";
+          } else if (day == 14) {
+            annualFunctionName = "ホワイトデー";
+          }
+          break;
+        case 4:
+          if (day == 1) {
+            annualFunctionName = "エイプリルフール";
+          }
+          break;
+        case 5:
+          if (day == 1) {
+            annualFunctionName = "メーデー";
+          } else {
+            // 第2日曜
+            if (date.getDay() == 0 && (Math.floor((day - 1) / 7) + 1) == 2) {
+              annualFunctionName = "母の日";
+            }
+          }
+          break;
+        case 6:
+          // 第3日曜
+          if (date.getDay() == 0 && (Math.floor((day - 1) / 7) + 1) == 3) {
+            annualFunctionName = "父の日";
+          }
+          break;
+        case 7:
+          if (day == 7) {
+            annualFunctionName = "七夕";
+          }
+          break;
+        case 8:
+          if (day == 15) {
+            annualFunctionName = "お盆(旧盆)";
+          }
+          break;
+        case 9:
+          break;
+        case 10:
+          if (day == 31) {
+            annualFunctionName = "ハロウィン";
+          }
+          break;
+        case 11:
+          if (day == 15) {
+            annualFunctionName = "七五三";
+          }
+          break;
+        case 12:
+          if (day == 24) {
+            annualFunctionName = "クリスマス・イブ";
+          } else if (day == 25) {
+            annualFunctionName = "クリスマス";
+          } else if (day == 31) {
+            annualFunctionName = "大晦日";
+          }
+          break;
+      }
+
+      return annualFunctionName;
     }
   };
 })(jQuery);
