@@ -93,7 +93,9 @@
     // 祝日一覧を表示
     //
 
-    var holidays = '<p class="holidayName">';
+    var dayList = $('<div class="dayList"></div>');
+
+    var holidays = "";
 
     for (var i = 1, lastDay = lastDate.getDate(); i < lastDay; i++) {
       var day = new Date(new Date(settings.day.getTime()).setDate(i));
@@ -105,14 +107,17 @@
       }
     }
 
-    holidays += "</p>";
-    $(target).append(holidays);
+    if (holidays != "") {
+      holidays = '<div class="holidayHead">祝日</div>' +
+                 '<div class="holidayBody">' + holidays + "</div>";
+      $(dayList).append(holidays);
+    }
 
     //
     // 二十四節気一覧を表示
     //
 
-    var days24sekki = '<p class="name24sekki">';
+    var days24sekki = "";
 
     for (var i = 1, lastDay = lastDate.getDate(); i < lastDay; i++) {
       var day = new Date(new Date(settings.day.getTime()).setDate(i));
@@ -124,8 +129,13 @@
       }
     }
 
-    days24sekki += "</p>";
-    $(target).append(days24sekki);
+    if (days24sekki != "") {
+      days24sekki = '<div class="head24sekki">二十四節気</div>' +
+                    '<div class="body24sekki">' + days24sekki + "</div>";
+      $(dayList).append(days24sekki);
+    }
+
+    $(target).append(dayList);
 
     //
     // 西暦を和暦に変換

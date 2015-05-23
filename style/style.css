@@ -39,7 +39,7 @@ body {
   color: #000000;
   font-size: 20pt;
   font-weight: lighter;
-  height: 1.5em;
+  height: 1.3em;
   display: table-cell;
   vertical-align: middle;
 }
@@ -104,18 +104,48 @@ body {
   background: #FFFFBB;
 }
 
+/* 一覧部 */
+
+.dayList {
+  margin: 1em 0em;
+}
+
 /* 祝日一覧 */
 
-.holidayName {
+.holidayHead {
+  background: #F4B2B2;
+  padding: 0.2em 0.5em;
   text-align: left;
-  font-size: 12pt;
+  font-size: 11pt;
+}
+
+.holidayBody {
+  border-right: 1px solid #DDDDDD;
+  border-bottom: 1px solid #DDDDDD;
+  border-left: 1px solid #DDDDDD;
+  background: #FFFFFF;
+  padding: 0.2em 1.5em;
+  text-align: left;
+  font-size: 10pt;
 }
 
 /* 二十四節気一覧 */
 
-.name24sekki {
+.head24sekki {
+  background: #B3DDF5;
+  padding: 0.2em 0.5em;
   text-align: left;
-  font-size: 12pt;
+  font-size: 11pt;
+}
+
+.body24sekki {
+  border-right: 1px solid #DDDDDD;
+  border-bottom: 1px solid #DDDDDD;
+  border-left: 1px solid #DDDDDD;
+  background: #FFFFFF;
+  padding: 0.2em 1.5em;
+  text-align: left;
+  font-size: 10pt;
 }
 
 /* 要素を均等に配置する */
@@ -134,7 +164,7 @@ body {
 /* 月送りボタン */
 
 .navigationButton {
-  margin-top: -1em;
+  margin-top: -0.5em;
 }
 
 /* ボタン */
