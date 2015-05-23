@@ -93,9 +93,11 @@
     // 祝日一覧を表示
     //
 
-    var holidays = '<p class="holidayName">';
+    var dayList = $('<div class="dayList"></div>');
 
-    for (var i = 1, lastDay = lastDate.getDate(); i < lastDay; i++) {
+    var holidays = "";
+
+    for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
       var day = new Date(new Date(settings.day.getTime()).setDate(i));
       var holidayName = ktHolidayName(day);
 
@@ -105,8 +107,58 @@
       }
     }
 
-    holidays += "</p>";
-    $(target).append(holidays);
+    if (holidays != "") {
+      holidays = '<div class="holidayHead">祝日</div>' +
+                 '<div class="holidayBody">' + holidays + "</div>";
+      $(dayList).append(holidays);
+    }
+
+    //
+    // 二十四節気一覧を表示
+    //
+
+    var days24sekki = "";
+
+    for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
+      var day = new Date(new Date(settings.day.getTime()).setDate(i));
+      var name24sekki = check24sekki(day);
+
+      if (name24sekki != "") {
+        days24sekki += i + "(" + settings.weekName[day.getDay()] + ") " +
+                       name24sekki + "<br>";
+      }
+    }
+
+    if (days24sekki != "") {
+      days24sekki = '<div class="head24sekki">二十四節気</div>' +
+                    '<div class="body24sekki">' + days24sekki + "</div>";
+      $(dayList).append(days24sekki);
+    }
+
+    //
+    // 年中行事一覧を表示
+    //
+
+    var annualFunctions = "";
+
+    for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
+      var day = new Date(new Date(settings.day.getTime()).setDate(i));
+      var annualFunctionName = checkAnnualFunction(day);
+
+      if (annualFunctionName != "") {
+        annualFunctions += i + "(" + settings.weekName[day.getDay()] + ") " +
+                           annualFunctionName + "<br>";
+      }
+    }
+
+    if (annualFunctions != "") {
+      annualFunctions = '<div class="annualFunctionHead">年中行事</div>' +
+                        '<div class="annualFunctionBody">' + annualFunctions +
+                        "</div>";
+      $(dayList).append(annualFunctions);
+    }
+
+    $(target).append(dayList);
 
     //
     // 西暦を和暦に変換
@@ -151,6 +203,146 @@
       }
 
       return jaYear;
+    }
+
+    //
+    // 太陽黄経を計算
+    //
+
+    function longitudeSun(date) {
+      var tm = date.getJD();
+      var tm1 = Math.floor(tm);
+      var tm2 = tm - tm1 + tz;
+      var t = (tm2 + 0.5) / 36525.0 + (tm1 - 2451545.0) / 36525.0;
+
+      return LONGITUDE_SUN(t);
+    }
+
+    //
+    // 二十四節気の判定
+    // 参考：http://eco.mtk.nao.ac.jp/koyomi/faq/24sekki.html
+    //
+
+    function check24sekki(day) {
+      var name24sekki = ["春分", "清明", "穀雨", "立夏", "小満", "芒種",
+                         "夏至", "小暑", "大暑", "立秋", "処暑", "白露",
+                         "秋分", "寒露", "霜降", "立冬", "小雪", "大雪",
+                         "冬至", "小寒", "大寒", "立春", "雨水", "啓蟄"];
+
+      day.setHours(0, 0, 0);
+      var nextDay = new Date(day.getFullYear(), day.getMonth(),
+                             day.getDate() + 1, 0, 0, 0);
+
+      var dayLongitude = Math.floor(longitudeSun(day) / 15.0);
+      var nextDayLongitude = Math.floor(longitudeSun(nextDay) / 15.0);
+
+      if (dayLongitude != nextDayLongitude) {
+        return name24sekki[nextDayLongitude];
+      } else {
+        return "";
+      }
+    }
+
+    //
+    // 年中行事の判定
+    //
+
+    function checkAnnualFunction(date) {
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+      var annualFunctionName = "";
+
+      switch (month) {
+        case 1:
+          if (day == 7) {
+            annualFunctionName = "七草";
+          } else if (day == 11) {
+            annualFunctionName = "鏡開き";
+          }
+          break;
+        case 2:
+          if (day == 14) {
+            annualFunctionName = "バレンタインデー";
+          } else {
+            // 立春を求める
+            var risshun = 0;
+            var lastDate = new Date(year, month + 1, 0);
+            for (var i = 1, lastDay = lastDate.getDate(); i < lastDay; i++) {
+              var theDay = new Date(new Date(date.getTime()).setDate(i));
+              if (check24sekki(theDay) == "立春") {
+                risshun = i;
+                break;
+              }
+            }
+
+            if (day == risshun - 1) {
+              annualFunctionName = "節分";
+            }
+          }
+          break;
+        case 3:
+          if (day == 3) {
+            annualFunctionName = "雛祭り(桃の節句)";
+          } else if (day == 14) {
+            annualFunctionName = "ホワイトデー";
+          }
+          break;
+        case 4:
+          if (day == 1) {
+            annualFunctionName = "エイプリルフール";
+          }
+          break;
+        case 5:
+          if (day == 1) {
+            annualFunctionName = "メーデー";
+          } else {
+            // 第2日曜
+            if (date.getDay() == 0 && (Math.floor((day - 1) / 7) + 1) == 2) {
+              annualFunctionName = "母の日";
+            }
+          }
+          break;
+        case 6:
+          // 第3日曜
+          if (date.getDay() == 0 && (Math.floor((day - 1) / 7) + 1) == 3) {
+            annualFunctionName = "父の日";
+          }
+          break;
+        case 7:
+          if (day == 7) {
+            annualFunctionName = "七夕";
+          }
+          break;
+        case 8:
+          if (day == 15) {
+            annualFunctionName = "お盆(旧盆)";
+          }
+          break;
+        case 9:
+          break;
+        case 10:
+          if (day == 31) {
+            annualFunctionName = "ハロウィン";
+          }
+          break;
+        case 11:
+          if (day == 15) {
+            annualFunctionName = "七五三";
+          }
+          break;
+        case 12:
+          if (day == 24) {
+            annualFunctionName = "クリスマス・イブ";
+          } else if (day == 25) {
+            annualFunctionName = "クリスマス";
+          } else if (day == 31) {
+            annualFunctionName = "大晦日";
+          }
+          break;
+      }
+
+      return annualFunctionName;
     }
   };
 })(jQuery);
@@ -211,6 +403,9 @@ $(document).ready(function() {
     // 日付入力欄の値を取得
     var selectDate = new Date($("#datePicker").val());
 
+    // ハイフンで区切られた日付だと GMT+9 になるので修正
+    selectDate.setHours(0, 0, 0);
+
     monthOffset = (selectDate.getFullYear() - new Date().getFullYear()) * 12;
     monthOffset += selectDate.getMonth() - new Date().getMonth();
     settings.day = selectDate;
@@ -228,8 +423,8 @@ $(document).ready(function() {
         $("#aboutDialogContent").empty();
         $("#aboutDialogContent").append('<p><img class="appIcon" src="' +
                                         manifest.icons[512] + '"></p>');
-        $("#aboutDialogContent").append('<p class="appName">' + manifest.name +
-                                        "</p>");
+        $("#aboutDialogContent").append('<p class="appName">' +
+                                        manifest.locales.ja.name + "</p>");
         $("#aboutDialogContent").append('<hr class="appHr">');
         $("#aboutDialogContent").append("<p>バージョン: " + manifest.version +
                                         "</p>");

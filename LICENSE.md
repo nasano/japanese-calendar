@@ -13,4 +13,8 @@
     <http://www.h3.dion.ne.jp/~sakatsu/index.htm>  
     CopyRight(C) K.Tsunoda(AddinBox) 2001 All Rights Reserved.
 
+  * 旧暦計算 JavaScript(ECMAScript) Library "qreki.js"  
+    <http://park1.wakwak.com/~y-nagano/Programs/koyomi/>  
+    Arranged for ECMAScript(ECMA-262) by Nagano Yutaka (C)1999-2001
+
 なお、このソフトウェアのアイコン画像は、paomedia（Arnaud）氏の[small-n-flat](http://paomedia.github.io/small-n-flat/)を元に作成しています。small-n-flatは、CC0 1.0 Universalに基づいて配布されており、このアイコン画像も同様のライセンスとします。
