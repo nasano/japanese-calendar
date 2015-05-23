@@ -104,9 +104,16 @@ body {
   background: #FFFFBB;
 }
 
-/* 休日名 */
+/* 祝日一覧 */
 
 .holidayName {
+  text-align: left;
+  font-size: 12pt;
+}
+
+/* 二十四節気一覧 */
+
+.name24sekki {
   text-align: left;
   font-size: 12pt;
 }

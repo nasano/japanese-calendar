@@ -109,6 +109,25 @@
     $(target).append(holidays);
 
     //
+    // 二十四節気一覧を表示
+    //
+
+    var days24sekki = '<p class="name24sekki">';
+
+    for (var i = 1, lastDay = lastDate.getDate(); i < lastDay; i++) {
+      var day = new Date(new Date(settings.day.getTime()).setDate(i));
+      var name24sekki = check24sekki(day);
+
+      if (name24sekki != "") {
+        days24sekki += i + "(" + settings.weekName[day.getDay()] + ") " +
+                       name24sekki + "<br>";
+      }
+    }
+
+    days24sekki += "</p>";
+    $(target).append(days24sekki);
+
+    //
     // 西暦を和暦に変換
     // 参考：http://www.openreference.org/articles/view/189
     //
@@ -151,6 +170,44 @@
       }
 
       return jaYear;
+    }
+
+    //
+    // 太陽黄経を計算
+    //
+
+    function longitudeSun(date) {
+      var tm = date.getJD();
+      var tm1 = Math.floor(tm);
+      var tm2 = tm - tm1 + tz;
+      var t = (tm2 + 0.5) / 36525.0 + (tm1 - 2451545.0) / 36525.0;
+
+      return LONGITUDE_SUN(t);
+    }
+
+    //
+    // 二十四節気の判定
+    // 参考：http://eco.mtk.nao.ac.jp/koyomi/faq/24sekki.html
+    //
+
+    function check24sekki(day) {
+      var name24sekki = ["春分", "清明", "穀雨", "立夏", "小満", "芒種",
+                         "夏至", "小暑", "大暑", "立秋", "処暑", "白露",
+                         "秋分", "寒露", "霜降", "立冬", "小雪", "大雪",
+                         "冬至", "小寒", "大寒", "立春", "雨水", "啓蟄"];
+
+      day.setHours(0, 0, 0);
+      var nextDay = new Date(day.getFullYear(), day.getMonth(),
+                             day.getDate() + 1, 0, 0, 0);
+
+      var dayLongitude = Math.floor(longitudeSun(day) / 15.0);
+      var nextDayLongitude = Math.floor(longitudeSun(nextDay) / 15.0);
+
+      if (dayLongitude != nextDayLongitude) {
+        return name24sekki[nextDayLongitude];
+      } else {
+        return "";
+      }
     }
   };
 })(jQuery);
