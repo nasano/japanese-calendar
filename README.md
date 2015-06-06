@@ -17,12 +17,25 @@
   * 「今日」ボタン：今月のカレンダーを表示します。
   * 「年月選択」ボタン：表示する年月を選択します。
 
+また、カレンダー部分をスワイプすることで表示する月を切り替えられます。
+
+  * 左へスワイプ：次月
+  * 右へスワイプ：前月
+  * 上へスワイプ：次年
+  * 下へスワイプ：前年
+
 更新履歴
 --------
 
+### 1.2（2015/6/6リリース）
+
+  * スワイプによるカレンダー切り替え機能を追加。  
+    （参考：[iPhone/Android/PC 対応。jQuery で書くタッチイベント (フェンリル | デベロッパーズブログ)](http://blog.fenrir-inc.com/jp/2011/06/ios_android_pc_touchevent.html)、[タッチイベントで座標が上手く取れない問題のメモ | Another Sky](http://www.anothersky.pw/skyward/archives/000136.html)、[jquery - Syntax for using selector in .on() method event-map? - Stack Overflow](http://stackoverflow.com/questions/9330590/syntax-for-using-selector-in-on-method-event-map)）
+
 ### 1.1（2015/5/23リリース）
 
-  * 二十四節気と年中行事の一覧を表示する機能を追加。
+  * 二十四節気と年中行事の一覧を表示する機能を追加。  
+    （参考：[旧暦計算 JavaScript(ECMAScript) Library "qreki.js"](http://park1.wakwak.com/~y-nagano/Programs/koyomi/)）
   * 今日が休日の場合に背景色が黄色になっていなかったのを修正。
   * 年月選択ボタンで選択した場合、祝日が正しく表示されない場合があるのを修正。
   * 西暦から和暦への変換を月単位で行うようにした。
@@ -30,7 +43,8 @@
 
 ### 1.0（2015/5/15リリース）
 
-  * 初リリース。
+  * 初リリース。  
+    （参考：[script 要素 - HTML | MDN](https://developer.mozilla.org/ja/docs/Web/HTML/Element/Script)、[Apps.getSelf - Web API インターフェイス | MDN](https://developer.mozilla.org/ja/docs/Web/API/DOMApplicationsRegistry/getSelf)、[Icon implementation for apps - App Center | MDN](https://developer.mozilla.org/en-US/Apps/Build/Icon_implementation_for_apps)、[firefox - How to trigger native datepickers from javascript in FirefoxOS? - Stack Overflow](http://stackoverflow.com/questions/17492223/how-to-trigger-native-datepickers-from-javascript-in-firefoxos)）
 
 ライセンス
 ----------
