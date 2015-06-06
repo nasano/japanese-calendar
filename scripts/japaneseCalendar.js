@@ -357,37 +357,50 @@
 $(document).ready(function() {
   var monthOffset = 0;
   var settings = {};
-  var swipeWidth = $("#calendar").width() / 6;
   var startPageX = 0;
   var startPageY = 0;
   var movePageX = 0;
   var movePageY = 0;
+  var swipeDistanceThreshold = Math.min($(window).width(),
+                                        $(window).height()) / 6;
 
+  //
   // カレンダーを表示
+  //
+
   $("#calendar").japaneseCalendar(settings);
 
+  //
   // 前月のカレンダーを表示
+  //
+
   $("#prev").click(function() {
     monthOffset--;
-    settings.day = getOffsetDate();
-    $("#calendar").japaneseCalendar(settings);
+    showCalendar();
   });
 
+  //
   // 次月のカレンダーを表示
+  //
+
   $("#next").click(function() {
     monthOffset++;
-    settings.day = getOffsetDate();
-    $("#calendar").japaneseCalendar(settings);
+    showCalendar();
   });
 
+  //
   // 今月のカレンダーを表示
+  //
+
   $("#today").click(function() {
     monthOffset = 0;
-    settings.day = getOffsetDate();
-    $("#calendar").japaneseCalendar(settings);
+    showCalendar();
   });
 
+  //
   // 表示するカレンダーの年月の選択を開始
+  //
+
   $("#selectYearMonth").click(function() {
     // 今表示されているカレンダーの日付を初期値としてセット
     var viewDate = getOffsetDate();
@@ -409,7 +422,10 @@ $(document).ready(function() {
     $("#datePicker").focus();
   });
 
+  //
   // 選択された年月のカレンダーを表示
+  //
+
   $("#datePicker").blur(function() {
     // blur イベントが発生するのは「OK」か「キャンセル」が押された為なので
     // 日付入力欄の値を取得
@@ -426,7 +442,10 @@ $(document).ready(function() {
     $("#calendar").japaneseCalendar(settings);
   });
 
+  //
   // About ダイアログを表示
+  //
+
   $("#about").click(function() {
     var request = window.navigator.mozApps.getSelf();
 
@@ -449,12 +468,18 @@ $(document).ready(function() {
     }
   });
 
+  //
   // About ダイアログを消去
+  //
+
   $("#close").click(function() {
     $("#aboutDialog").fadeOut(200);
   });
 
+  //
   // スワイプでカレンダーを切り替え
+  //
+
   $("#calendar").on({
     "touchstart": function(e) {
       e.preventDefault();
@@ -471,33 +496,41 @@ $(document).ready(function() {
     },
 
     "touchend": function(e) {
-      if (startPageX - movePageX > swipeWidth) {
+      if (startPageX - movePageX > swipeDistanceThreshold) {
         // 次月のカレンダーを表示
         monthOffset++;
-        settings.day = getOffsetDate();
-        $("#calendar").japaneseCalendar(settings);
-      } else if (movePageX - startPageX > swipeWidth) {
+        showCalendar();
+      } else if (movePageX - startPageX > swipeDistanceThreshold) {
         // 前月のカレンダーを表示
         monthOffset--;
-        settings.day = getOffsetDate();
-        $("#calendar").japaneseCalendar(settings);
-      } else if (startPageY - movePageY > swipeWidth) {
+        showCalendar();
+      } else if (startPageY - movePageY > swipeDistanceThreshold) {
         // 次年のカレンダーを表示
-        monthOffset = monthOffset + 12;
-        settings.day = getOffsetDate();
-        $("#calendar").japaneseCalendar(settings);
-      } else if (movePageY - startPageY > swipeWidth) {
+        monthOffset += 12;
+        showCalendar();
+      } else if (movePageY - startPageY > swipeDistanceThreshold) {
         // 前年のカレンダーを表示
-        monthOffset = monthOffset - 12;
-        settings.day = getOffsetDate();
-        $("#calendar").japaneseCalendar(settings);
+        monthOffset -= 12;
+        showCalendar();
       }
     }
   }, "#calendarBody");
 
+  //
   // 差分を計算した Date オブジェクトを取得
+  //
+
   function getOffsetDate() {
     return new Date(new Date().getFullYear(),
                     new Date().getMonth() + monthOffset, new Date().getDate());
+  }
+
+  //
+  // カレンダーを表示
+  //
+
+  function showCalendar() {
+    settings.day = getOffsetDate();
+    $("#calendar").japaneseCalendar(settings);
   }
 });
