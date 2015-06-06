@@ -39,11 +39,14 @@
     // 曜日を表示
     //
 
-    $(target).append('<div class="row"></div>');
+    var calendarBody = $('<div id="calendarBody"></div>');
+    var rowWeek = $('<div class="row"></div>');
+
     for (var i = 0; i < 7; i++) {
-      $(".row").append('<div class="weekName day' + i + '">' +
-                       settings.weekName[i] + "</div>");
+      $(rowWeek).append('<div class="weekName day' + i + '">' +
+                        settings.weekName[i] + "</div>");
     }
+    $(calendarBody).append($(rowWeek));
 
     //
     // 日付を表示
@@ -53,7 +56,8 @@
     var todayString = today.getFullYear() + "/" + (today.getMonth() + 1) +
                       "/" + today.getDate();
     var dayOfWeekCount = 0;
-    var rowWeek = $('<div class="row"></div>');
+
+    rowWeek = $('<div class="row"></div>');
 
     for (var i = startDay, lastDay = lastDate.getDate(); i < lastDay + endDay;
          i++) {
@@ -83,11 +87,13 @@
 
       // 週末で改行
       if (dayOfWeekCount++ > 5) {
-        $(target).append($(rowWeek));
+        $(calendarBody).append($(rowWeek));
         rowWeek = $('<div class="row"></div>');
         dayOfWeekCount = 0;
       }
     }
+
+    $(target).append($(calendarBody));
 
     //
     // 祝日一覧を表示
@@ -350,6 +356,11 @@
 $(document).ready(function() {
   var monthOffset = 0;
   var settings = {};
+  var swipeWidth = $("#calendar").width() / 6;
+  var startPageX = 0;
+  var startPageY = 0;
+  var movePageX = 0;
+  var movePageY = 0;
 
   // カレンダーを表示
   $("#calendar").japaneseCalendar(settings);
@@ -439,6 +450,47 @@ $(document).ready(function() {
   $("#close").click(function() {
     $("#aboutDialog").fadeOut(200);
   });
+
+  // スワイプでカレンダーを切り替え
+  $("#calendar").on({
+    "touchstart": function(e) {
+      e.preventDefault();
+      startPageX = e.originalEvent.changedTouches[0].pageX;
+      startPageY = e.originalEvent.changedTouches[0].pageY;
+      movePageX = startPageX;
+      movePageY = startPageY;
+    },
+
+    "touchmove": function(e) {
+      e.preventDefault();
+      movePageX = e.originalEvent.changedTouches[0].pageX;
+      movePageY = e.originalEvent.changedTouches[0].pageY;
+    },
+
+    "touchend": function(e) {
+      if (startPageX - movePageX > swipeWidth) {
+        // 次月のカレンダーを表示
+        monthOffset++;
+        settings.day = getOffsetDate();
+        $("#calendar").japaneseCalendar(settings);
+      } else if (movePageX - startPageX > swipeWidth) {
+        // 前月のカレンダーを表示
+        monthOffset--;
+        settings.day = getOffsetDate();
+        $("#calendar").japaneseCalendar(settings);
+      } else if (startPageY - movePageY > swipeWidth) {
+        // 次年のカレンダーを表示
+        monthOffset = monthOffset + 12;
+        settings.day = getOffsetDate();
+        $("#calendar").japaneseCalendar(settings);
+      } else if (movePageY - startPageY > swipeWidth) {
+        // 前年のカレンダーを表示
+        monthOffset = monthOffset - 12;
+        settings.day = getOffsetDate();
+        $("#calendar").japaneseCalendar(settings);
+      }
+    }
+  }, "#calendarBody");
 
   // 差分を計算した Date オブジェクトを取得
   function getOffsetDate() {
