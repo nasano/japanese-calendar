@@ -1,3 +1,6 @@
+// Strict モード
+"use strict";
+
 ;(function($) {
   //
   // プラグイン化
