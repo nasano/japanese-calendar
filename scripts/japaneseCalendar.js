@@ -1,7 +1,10 @@
-// Strict モード
-"use strict";
-
 ;(function($) {
+  //
+  // Strict モード
+  //
+
+  "use strict";
+
   //
   // プラグイン化
   //
@@ -358,6 +361,12 @@
 })(jQuery);
 
 $(document).ready(function() {
+  //
+  // Strict モード
+  //
+
+  "use strict";
+
   var monthOffset = 0;
   var settings = {};
   var startPageX = 0;
