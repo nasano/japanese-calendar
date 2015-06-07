@@ -374,7 +374,7 @@ $(document).ready(function() {
   var movePageX = 0;
   var movePageY = 0;
   var swipeDistanceThreshold = Math.min($(window).width(),
-                                        $(window).height()) / 6;
+                                        $(window).height()) / 8;
 
   //
   // カレンダーを表示
