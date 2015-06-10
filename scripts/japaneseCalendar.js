@@ -508,22 +508,29 @@ $(document).ready(function() {
     },
 
     "touchend": function(e) {
-      if (startPageX - movePageX > swipeDistanceThreshold) {
-        // 次月のカレンダーを表示
-        monthOffset++;
-        showCalendar();
-      } else if (movePageX - startPageX > swipeDistanceThreshold) {
-        // 前月のカレンダーを表示
-        monthOffset--;
-        showCalendar();
-      } else if (startPageY - movePageY > swipeDistanceThreshold) {
-        // 次年のカレンダーを表示
-        monthOffset += 12;
-        showCalendar();
-      } else if (movePageY - startPageY > swipeDistanceThreshold) {
-        // 前年のカレンダーを表示
-        monthOffset -= 12;
-        showCalendar();
+      if (Math.abs(startPageX - movePageX) >
+          Math.abs(startPageY - movePageY)) {
+        // 左右スワイプ
+        if (startPageX - movePageX > swipeDistanceThreshold) {
+          // 次月のカレンダーを表示
+          monthOffset++;
+          showCalendar();
+        } else if (movePageX - startPageX > swipeDistanceThreshold) {
+          // 前月のカレンダーを表示
+          monthOffset--;
+          showCalendar();
+        }
+      } else {
+        // 上下スワイプ
+        if (startPageY - movePageY > swipeDistanceThreshold) {
+          // 次年のカレンダーを表示
+          monthOffset += 12;
+          showCalendar();
+        } else if (movePageY - startPageY > swipeDistanceThreshold) {
+          // 前年のカレンダーを表示
+          monthOffset -= 12;
+          showCalendar();
+        }
       }
     }
   }, "#calendarBody");
