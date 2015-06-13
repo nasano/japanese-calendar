@@ -104,10 +104,16 @@ body {
   background: #FFFFBB;
 }
 
-/* 一覧部 */
+/* 祝日・二十四節気・年中行事一覧 */
 
 .dayList {
   margin: 1em 0em;
+}
+
+.holidayHead, .head24sekki, .annualFunctionHead {
+  padding: 0.2em 0.5em;
+  text-align: left;
+  font-size: 11pt;
 }
 
 .holidayBody, .body24sekki, .annualFunctionBody {
@@ -120,31 +126,22 @@ body {
   font-size: 10pt;
 }
 
-/* 祝日一覧 */
+/* 祝日一覧ヘッダ */
 
 .holidayHead {
   background: #F4B2B2;
-  padding: 0.2em 0.5em;
-  text-align: left;
-  font-size: 11pt;
 }
 
-/* 二十四節気一覧 */
+/* 二十四節気一覧ヘッダ */
 
 .head24sekki {
   background: #B3DDF5;
-  padding: 0.2em 0.5em;
-  text-align: left;
-  font-size: 11pt;
 }
 
-/* 年中行事一覧 */
+/* 年中行事一覧ヘッダ */
 
 .annualFunctionHead {
   background: #A5E1BD;
-  padding: 0.2em 0.5em;
-  text-align: left;
-  font-size: 11pt;
 }
 
 /* 要素を均等に配置する */
