@@ -110,16 +110,7 @@ body {
   margin: 1em 0em;
 }
 
-/* 祝日一覧 */
-
-.holidayHead {
-  background: #F4B2B2;
-  padding: 0.2em 0.5em;
-  text-align: left;
-  font-size: 11pt;
-}
-
-.holidayBody {
+.holidayBody, .body24sekki, .annualFunctionBody {
   border-right: 1px solid #DDDDDD;
   border-bottom: 1px solid #DDDDDD;
   border-left: 1px solid #DDDDDD;
@@ -127,6 +118,15 @@ body {
   padding: 0.2em 1.5em 0.5em 1.5em;
   text-align: left;
   font-size: 10pt;
+}
+
+/* 祝日一覧 */
+
+.holidayHead {
+  background: #F4B2B2;
+  padding: 0.2em 0.5em;
+  text-align: left;
+  font-size: 11pt;
 }
 
 /* 二十四節気一覧 */
@@ -138,16 +138,6 @@ body {
   font-size: 11pt;
 }
 
-.body24sekki {
-  border-right: 1px solid #DDDDDD;
-  border-bottom: 1px solid #DDDDDD;
-  border-left: 1px solid #DDDDDD;
-  background: #FFFFFF;
-  padding: 0.2em 1.5em 0.5em 1.5em;
-  text-align: left;
-  font-size: 10pt;
-}
-
 /* 年中行事一覧 */
 
 .annualFunctionHead {
@@ -155,16 +145,6 @@ body {
   padding: 0.2em 0.5em;
   text-align: left;
   font-size: 11pt;
-}
-
-.annualFunctionBody {
-  border-right: 1px solid #DDDDDD;
-  border-bottom: 1px solid #DDDDDD;
-  border-left: 1px solid #DDDDDD;
-  background: #FFFFFF;
-  padding: 0.2em 1.5em 0.5em 1.5em;
-  text-align: left;
-  font-size: 10pt;
 }
 
 /* 要素を均等に配置する */
