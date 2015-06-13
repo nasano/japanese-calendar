@@ -468,6 +468,9 @@ $(document).ready(function() {
     request.onsuccess = function() {
       if (request.result) {
         var manifest = request.result.manifest;
+        var gitHubURL = "https://github.com/nasano/japanese-calendar";
+        var marketplaceURL =
+              "https://marketplace.firefox.com/app/japanese-calendar";
 
         $("#aboutDialogContent").empty();
         $("#aboutDialogContent").append('<p><img class="appIcon" src="' +
@@ -479,6 +482,15 @@ $(document).ready(function() {
                                         "</p>");
         $("#aboutDialogContent").append("<p>作成者: " +
                                         manifest.developer.name + "</p>");
+        $("#aboutDialogContent").append('<p><a target="_blank" href="' +
+                                        manifest.developer.url +
+                                        '">ウェブサイト</a> | ' +
+                                        '<a target="_blank" href="' +
+                                        gitHubURL + '">GitHub</a> | ' +
+                                        '<a target="_blank" href="' +
+                                        marketplaceURL +
+                                        '">Firefox Marketplace</a></p>');
+
         $("#aboutDialog").fadeIn(200);
       }
     }
