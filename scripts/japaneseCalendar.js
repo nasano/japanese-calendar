@@ -373,6 +373,7 @@ $(document).ready(function() {
   var startPageY = 0;
   var movePageX = 0;
   var movePageY = 0;
+  var scrollTopPosition = 0;
   var swipeDistanceThreshold = Math.min($(window).width(),
                                         $(window).height()) / 8;
 
@@ -459,6 +460,9 @@ $(document).ready(function() {
   //
 
   $("#about").click(function() {
+    // 現在のスクロール位置を記憶
+    scrollTopPosition = $(window).scrollTop();
+
     var request = window.navigator.mozApps.getSelf();
 
     request.onsuccess = function() {
@@ -485,6 +489,9 @@ $(document).ready(function() {
   //
 
   $("#close").click(function() {
+    // スクロール位置を復元
+    $(window).scrollTop(scrollTopPosition);
+
     $("#aboutDialog").fadeOut(200);
   });
 
