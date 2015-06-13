@@ -226,6 +226,12 @@ input#datePicker {
   text-align: center;
 }
 
+/* リンクをタップした時に出る点線を消す */
+
+#aboutDialog a {
+  outline: none;
+}
+
 .appIcon {
   width: 128px;
   height: 128px;
