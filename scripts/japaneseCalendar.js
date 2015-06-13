@@ -492,6 +492,9 @@ $(document).ready(function() {
                                         '">Firefox Marketplace</a></p>');
 
         $("#aboutDialog").fadeIn(200);
+
+        // About ダイアログのスクロール位置をトップに移動
+        $("#aboutDialog").scrollTop(0);
       }
     }
   });
