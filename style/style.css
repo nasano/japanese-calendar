@@ -207,7 +207,9 @@ input.button:active {
 /* 日時入力欄を消す */
 
 input#datePicker {
-  margin-left: -100%;
+  width: 0em;
+  height: 0em;
+  border: none;
 }
 
 /* About ダイアログ */
