@@ -110,13 +110,13 @@ body {
   margin: 1em 0em;
 }
 
-.holidayHead, .head24sekki, .annualFunctionHead {
+.holidayHead, .nijushiSekkiHead, .annualFunctionHead {
   padding: 0.2em 0.5em;
   text-align: left;
   font-size: 11pt;
 }
 
-.holidayBody, .body24sekki, .annualFunctionBody {
+.holidayBody, .nijushiSekkiBody, .annualFunctionBody {
   border-right: 1px solid #DDDDDD;
   border-bottom: 1px solid #DDDDDD;
   border-left: 1px solid #DDDDDD;
@@ -134,7 +134,7 @@ body {
 
 /* 二十四節気一覧ヘッダ */
 
-.head24sekki {
+.nijushiSekkiHead {
   background: #B3DDF5;
 }
 

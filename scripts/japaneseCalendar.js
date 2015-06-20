@@ -128,22 +128,23 @@
     // 二十四節気一覧を表示
     //
 
-    var days24sekki = "";
+    var nijushiSekkiDays = "";
 
     for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
       var day = new Date(new Date(settings.day.getTime()).setDate(i));
-      var name24sekki = check24sekki(day);
+      var nijushiSekkiName = checkNijushiSekki(day);
 
-      if (name24sekki !== "") {
-        days24sekki += i + "(" + settings.weekName[day.getDay()] + ") " +
-                       name24sekki + "<br>";
+      if (nijushiSekkiName !== "") {
+        nijushiSekkiDays += i + "(" + settings.weekName[day.getDay()] + ") " +
+                            nijushiSekkiName + "<br>";
       }
     }
 
-    if (days24sekki !== "") {
-      days24sekki = '<div class="head24sekki">二十四節気</div>' +
-                    '<div class="body24sekki">' + days24sekki + "</div>";
-      $(dayList).append(days24sekki);
+    if (nijushiSekkiDays !== "") {
+      nijushiSekkiDays = '<div class="nijushiSekkiHead">二十四節気</div>' +
+                         '<div class="nijushiSekkiBody">' + nijushiSekkiDays +
+                         "</div>";
+      $(dayList).append(nijushiSekkiDays);
     }
 
     //
@@ -234,11 +235,11 @@
     // 参考：http://eco.mtk.nao.ac.jp/koyomi/faq/24sekki.html
     //
 
-    function check24sekki(day) {
-      var name24sekki = ["春分", "清明", "穀雨", "立夏", "小満", "芒種",
-                         "夏至", "小暑", "大暑", "立秋", "処暑", "白露",
-                         "秋分", "寒露", "霜降", "立冬", "小雪", "大雪",
-                         "冬至", "小寒", "大寒", "立春", "雨水", "啓蟄"];
+    function checkNijushiSekki(day) {
+      var nijushiSekkiList = ["春分", "清明", "穀雨", "立夏", "小満", "芒種",
+                              "夏至", "小暑", "大暑", "立秋", "処暑", "白露",
+                              "秋分", "寒露", "霜降", "立冬", "小雪", "大雪",
+                              "冬至", "小寒", "大寒", "立春", "雨水", "啓蟄"];
 
       day.setHours(0, 0, 0);
 
@@ -248,7 +249,7 @@
       var nextDayLongitude = Math.floor(longitudeSun(nextDay) / 15.0);
 
       if (dayLongitude !== nextDayLongitude) {
-        return name24sekki[nextDayLongitude];
+        return nijushiSekkiList[nextDayLongitude];
       } else {
         return "";
       }
@@ -283,7 +284,7 @@
             for (var i = 1, lastDay = lastDate.getDate(); i < lastDay; i++) {
               var theDay = new Date(new Date(date.getTime()).setDate(i));
 
-              if (check24sekki(theDay) === "立春") {
+              if (checkNijushiSekki(theDay) === "立春") {
                 risshun = i;
                 break;
               }
