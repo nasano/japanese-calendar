@@ -279,7 +279,7 @@
           } else {
             // 立春を求める
             var risshun = 0;
-            var lastDate = new Date(year, month + 1, 0);
+            var lastDate = new Date(year, month, 0);
 
             for (var i = 1, lastDay = lastDate.getDate(); i < lastDay; i++) {
               var theDay = new Date(new Date(date.getTime()).setDate(i));
@@ -310,30 +310,45 @@
         case 5:
           if (day === 1) {
             annualFunctionName = "メーデー";
-          } else {
+          } else if (date.getDay() === 0 &&
+                     (Math.floor((day - 1) / 7) + 1) === 2) {
             // 第2日曜
-            if (date.getDay() === 0 && (Math.floor((day - 1) / 7) + 1) === 2) {
-              annualFunctionName = "母の日";
-            }
+            annualFunctionName = "母の日";
           }
           break;
         case 6:
-          // 第3日曜
-          if (date.getDay() === 0 && (Math.floor((day - 1) / 7) + 1) === 3) {
+          date.setHours(0, 0, 0);
+          if (longitudeSun(date) > 79 &&
+              longitudeSun(new Date(year, month - 1, day + 1)) < 81) {
+            annualFunctionName = "入梅";
+          } else if (date.getDay() === 0 &&
+                     (Math.floor((day - 1) / 7) + 1) === 3) {
+            // 第3日曜
             annualFunctionName = "父の日";
           }
           break;
         case 7:
-          if (day === 7) {
+          date.setHours(0, 0, 0);
+          if (longitudeSun(date) > 99 &&
+              longitudeSun(new Date(year, month - 1, day + 1)) < 101) {
+            annualFunctionName = "半夏生";
+          } else  if (day === 7) {
             annualFunctionName = "七夕";
           }
           break;
         case 8:
           if (day === 15) {
             annualFunctionName = "お盆(旧盆)";
+          } else if (checkNijushiSekki(new Date(year, month - 1,
+                                                day - 209)) === "立春") {
+            annualFunctionName = "二百十日";
           }
           break;
         case 9:
+          if (checkNijushiSekki(new Date(year, month - 1,
+                                         day - 209)) === "立春") {
+            annualFunctionName = "二百十日";
+          }
           break;
         case 10:
           if (day === 31) {
