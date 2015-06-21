@@ -318,8 +318,9 @@
           break;
         case 6:
           date.setHours(0, 0, 0);
-          if (longitudeSun(date) > 79 &&
-              longitudeSun(new Date(year, month - 1, day + 1)) < 81) {
+          if (Math.floor(longitudeSun(date)) === 79 &&
+              Math.floor(longitudeSun(new Date(year, month - 1,
+                                               day + 1))) === 80) {
             annualFunctionName = "入梅";
           } else if (date.getDay() === 0 &&
                      (Math.floor((day - 1) / 7) + 1) === 3) {
@@ -329,8 +330,9 @@
           break;
         case 7:
           date.setHours(0, 0, 0);
-          if (longitudeSun(date) > 99 &&
-              longitudeSun(new Date(year, month - 1, day + 1)) < 101) {
+          if (Math.floor(longitudeSun(date)) === 99 &&
+              Math.floor(longitudeSun(new Date(year, month - 1,
+                                               day + 1))) === 100) {
             annualFunctionName = "半夏生";
           } else  if (day === 7) {
             annualFunctionName = "七夕";
