@@ -20,6 +20,9 @@
       "weekName": ["日", "月", "火", "水", "木", "金", "土"]
     }, options);
 
+    // 0時0分0秒にしておく
+    settings.day.setHours(0, 0, 0);
+
     var startDay = 1 - new Date(settings.day.getFullYear(),
                                 settings.day.getMonth(), 1).getDay();
     var lastDate = new Date(settings.day.getFullYear(),
@@ -245,10 +248,8 @@
                               "秋分", "寒露", "霜降", "立冬", "小雪", "大雪",
                               "冬至", "小寒", "大寒", "立春", "雨水", "啓蟄"];
 
-      day.setHours(0, 0, 0);
-
       var nextDay = new Date(day.getFullYear(), day.getMonth(),
-                             day.getDate() + 1, 0, 0, 0);
+                             day.getDate() + 1);
       var dayLongitude = Math.floor(longitudeSun(day) / 15.0);
       var nextDayLongitude = Math.floor(longitudeSun(nextDay) / 15.0);
 
@@ -321,7 +322,6 @@
           }
           break;
         case 6:
-          date.setHours(0, 0, 0);
           if (Math.floor(longitudeSun(date)) === 79 &&
               Math.floor(longitudeSun(new Date(year, month - 1,
                                                day + 1))) === 80) {
@@ -333,7 +333,6 @@
           }
           break;
         case 7:
-          date.setHours(0, 0, 0);
           if (Math.floor(longitudeSun(date)) === 99 &&
               Math.floor(longitudeSun(new Date(year, month - 1,
                                                day + 1))) === 100) {
@@ -584,8 +583,10 @@ $(document).ready(function() {
   //
 
   function getOffsetDate() {
-    return new Date(new Date().getFullYear(),
-                    new Date().getMonth() + monthOffset, new Date().getDate());
+    var today = new Date();
+
+    return new Date(today.getFullYear(), today.getMonth() + monthOffset,
+                    today.getDate());
   }
 
   //
