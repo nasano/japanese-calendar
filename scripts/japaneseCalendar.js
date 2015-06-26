@@ -72,7 +72,8 @@
         $(rowWeek).append('<div class="day day' + dayOfWeekCount +
                           '">&nbsp;</div>');
       } else {
-        var day = new Date(new Date(settings.day.getTime()).setDate(i));
+        var day = new Date(settings.day.getFullYear(), settings.day.getMonth(),
+                           i);
         var dayString = day.getFullYear() + "/" + (day.getMonth() + 1) + "/" +
                         day.getDate();
         var holidayName = ktHolidayName(day);
@@ -109,7 +110,8 @@
     var holidays = "";
 
     for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
-      var day = new Date(new Date(settings.day.getTime()).setDate(i));
+      var day = new Date(settings.day.getFullYear(), settings.day.getMonth(),
+                         i);
       var holidayName = ktHolidayName(day);
 
       if (holidayName !== "") {
@@ -131,7 +133,8 @@
     var nijushiSekkiDays = "";
 
     for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
-      var day = new Date(new Date(settings.day.getTime()).setDate(i));
+      var day = new Date(settings.day.getFullYear(), settings.day.getMonth(),
+                         i);
       var nijushiSekkiName = checkNijushiSekki(day);
 
       if (nijushiSekkiName !== "") {
@@ -154,7 +157,8 @@
     var annualFunctions = "";
 
     for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
-      var day = new Date(new Date(settings.day.getTime()).setDate(i));
+      var day = new Date(settings.day.getFullYear(), settings.day.getMonth(),
+                         i);
       var annualFunctionName = checkAnnualFunction(day);
 
       if (annualFunctionName !== "") {
@@ -282,7 +286,7 @@
             var lastDate = new Date(year, month, 0);
 
             for (var i = 1, lastDay = lastDate.getDate(); i < lastDay; i++) {
-              var theDay = new Date(new Date(date.getTime()).setDate(i));
+              var theDay = new Date(date.getFullYear(), date.getMonth(), i);
 
               if (checkNijushiSekki(theDay) === "立春") {
                 risshun = i;
