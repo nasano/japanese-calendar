@@ -39,7 +39,8 @@
   * 二十四節気と年中行事の一覧を表示する機能を追加。  
     （参考：[旧暦計算 JavaScript(ECMAScript) Library "qreki.js"](http://park1.wakwak.com/~y-nagano/Programs/koyomi/)）
   * 今日が休日の場合に背景色が黄色になっていなかったのを修正。
-  * 年月選択ボタンで選択した場合、祝日が正しく表示されない場合があるのを修正。
+  * 年月選択ボタンで選択した場合、祝日が正しく表示されない場合があるのを修正。  
+    （参考：[意外と知られていないJavaScriptのnew Date()の使用方法 | iwb.jp](http://iwb.jp/javascript-new-date-gettime/)）
   * 西暦から和暦への変換を月単位で行うようにした。
   * 表示レイアウトを修正。
 
@@ -59,9 +60,10 @@
 作成者
 ------
 
-[ASANO, Naoyuki](http://multi.nadenade.com/leafy/)  
-ウェブサイト：<http://multi.nadenade.com/leafy/Mozilla/Calendar/>  
-GitHub：<https://github.com/nasano/japanese-calendar>  
-Firefox Marketplace：<https://marketplace.firefox.com/app/japanese-calendar>
+[ASANO, Naoyuki](http://multi.nadenade.com/leafy/)
+
+  * ウェブサイト：<http://multi.nadenade.com/leafy/Mozilla/Calendar/>  
+  * GitHub：<https://github.com/nasano/japanese-calendar>  
+  * Firefox Marketplace：<https://marketplace.firefox.com/app/japanese-calendar>
 
 Copyright (C) 2015 ASANO, Naoyuki All Rights Reserved.
