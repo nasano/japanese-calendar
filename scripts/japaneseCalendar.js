@@ -23,11 +23,9 @@
     // 0時0分0秒にしておく
     settings.day.setHours(0, 0, 0);
 
-    var startDay = 1 - new Date(settings.day.getFullYear(),
-                                settings.day.getMonth(), 1).getDay();
-    var lastDate = new Date(settings.day.getFullYear(),
-                            settings.day.getMonth() + 1, 0);
-    var endDay = 7 - lastDate.getDay();
+    var year = settings.day.getFullYear();
+    var month = settings.day.getMonth();
+    var lastDate = new Date(year, month + 1, 0);
 
     //
     // 現在表示されているカレンダーを消去
@@ -39,10 +37,9 @@
     // 年月を表示
     //
 
-    $(target).append('<div class="yearMonth">' + settings.day.getFullYear() +
-                     "年" + toJapaneseEra(settings.day.getFullYear(),
-                                          settings.day.getMonth() + 1) +
-                     (settings.day.getMonth() + 1) + "月</div>");
+    $(target).append('<div class="yearMonth">' + year + "年" +
+                     toJapaneseEra(year, month + 1) + (month + 1) +
+                     "月</div>");
 
     //
     // 曜日を表示
@@ -64,19 +61,20 @@
     var today = new Date();
     var todayString = today.getFullYear() + "/" + (today.getMonth() + 1) +
                       "/" + today.getDate();
+    var startDay = 1 - new Date(year, month, 1).getDay();
+    var endDay = 7 - lastDate.getDay();
+    var lastDay = lastDate.getDate();
     var dayOfWeekCount = 0;
 
     rowWeek = $('<div class="row"></div>');
 
-    for (var i = startDay, lastDay = lastDate.getDate(); i < lastDay + endDay;
-         i++) {
+    for (var i = startDay; i < lastDay + endDay; i++) {
       // 表示する月内でなければ空欄
       if (i < 1 || i > lastDay) {
         $(rowWeek).append('<div class="day day' + dayOfWeekCount +
                           '">&nbsp;</div>');
       } else {
-        var day = new Date(settings.day.getFullYear(), settings.day.getMonth(),
-                           i);
+        var day = new Date(year, month, i);
         var dayString = day.getFullYear() + "/" + (day.getMonth() + 1) + "/" +
                         day.getDate();
         var holidayName = ktHolidayName(day);
@@ -112,9 +110,8 @@
     var dayList = $('<div class="dayList"></div>');
     var holidays = "";
 
-    for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
-      var day = new Date(settings.day.getFullYear(), settings.day.getMonth(),
-                         i);
+    for (var i = 1; i <= lastDay; i++) {
+      var day = new Date(year, month, i);
       var holidayName = ktHolidayName(day);
 
       if (holidayName !== "") {
@@ -135,9 +132,8 @@
 
     var nijushiSekkiDays = "";
 
-    for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
-      var day = new Date(settings.day.getFullYear(), settings.day.getMonth(),
-                         i);
+    for (var i = 1; i <= lastDay; i++) {
+      var day = new Date(year, month, i);
       var nijushiSekkiName = checkNijushiSekki(day);
 
       if (nijushiSekkiName !== "") {
@@ -159,9 +155,8 @@
 
     var annualFunctions = "";
 
-    for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
-      var day = new Date(settings.day.getFullYear(), settings.day.getMonth(),
-                         i);
+    for (var i = 1; i <= lastDay; i++) {
+      var day = new Date(year, month, i);
       var annualFunctionName = checkAnnualFunction(day);
 
       if (annualFunctionName !== "") {
@@ -266,19 +261,19 @@
 
     function checkAnnualFunction(date) {
       var year = date.getFullYear();
-      var month = date.getMonth() + 1;
+      var month = date.getMonth();
       var day = date.getDate();
       var annualFunctionName = "";
 
       switch (month) {
-        case 1:
+        case 0:
           if (day === 7) {
             annualFunctionName = "七草";
           } else if (day === 11) {
             annualFunctionName = "鏡開き";
           }
           break;
-        case 2:
+        case 1:
           if (day === 14) {
             annualFunctionName = "バレンタインデー";
           } else {
@@ -287,7 +282,7 @@
             var lastDate = new Date(year, month, 0);
 
             for (var i = 1, lastDay = lastDate.getDate(); i < lastDay; i++) {
-              var theDay = new Date(date.getFullYear(), date.getMonth(), i);
+              var theDay = new Date(year, month, i);
 
               if (checkNijushiSekki(theDay) === "立春") {
                 risshun = i;
@@ -300,72 +295,72 @@
             }
           }
           break;
-        case 3:
+        case 2:
           if (day === 3) {
             annualFunctionName = "雛祭り(桃の節句)";
           } else if (day === 14) {
             annualFunctionName = "ホワイトデー";
           }
           break;
-        case 4:
+        case 3:
           if (day === 1) {
             annualFunctionName = "エイプリルフール";
           }
           break;
-        case 5:
+        case 4:
           if (day === 1) {
             annualFunctionName = "メーデー";
           } else if (date.getDay() === 0 &&
-                     (Math.floor((day - 1) / 7) + 1) === 2) {
+                     Math.floor((day - 1) / 7) + 1 === 2) {
             // 第2日曜
             annualFunctionName = "母の日";
           }
           break;
-        case 6:
+        case 5:
           if (Math.floor(longitudeSun(date)) === 79 &&
-              Math.floor(longitudeSun(new Date(year, month - 1,
+              Math.floor(longitudeSun(new Date(year, month,
                                                day + 1))) === 80) {
             annualFunctionName = "入梅";
           } else if (date.getDay() === 0 &&
-                     (Math.floor((day - 1) / 7) + 1) === 3) {
+                     Math.floor((day - 1) / 7) + 1 === 3) {
             // 第3日曜
             annualFunctionName = "父の日";
           }
           break;
-        case 7:
+        case 6:
           if (Math.floor(longitudeSun(date)) === 99 &&
-              Math.floor(longitudeSun(new Date(year, month - 1,
+              Math.floor(longitudeSun(new Date(year, month,
                                                day + 1))) === 100) {
             annualFunctionName = "半夏生";
           } else  if (day === 7) {
             annualFunctionName = "七夕";
           }
           break;
-        case 8:
+        case 7:
           if (day === 15) {
             annualFunctionName = "お盆(旧盆)";
-          } else if (checkNijushiSekki(new Date(year, month - 1,
+          } else if (checkNijushiSekki(new Date(year, month,
                                                 day - 209)) === "立春") {
             annualFunctionName = "二百十日";
           }
           break;
-        case 9:
-          if (checkNijushiSekki(new Date(year, month - 1,
+        case 8:
+          if (checkNijushiSekki(new Date(year, month,
                                          day - 209)) === "立春") {
             annualFunctionName = "二百十日";
           }
           break;
-        case 10:
+        case 9:
           if (day === 31) {
             annualFunctionName = "ハロウィン";
           }
           break;
-        case 11:
+        case 10:
           if (day === 15) {
             annualFunctionName = "七五三";
           }
           break;
-        case 12:
+        case 11:
           if (day === 24) {
             annualFunctionName = "クリスマス・イブ";
           } else if (day === 25) {
@@ -468,8 +463,10 @@ $(document).ready(function() {
     // ハイフンで区切られた日付だと GMT+9 になるので修正
     selectDate.setHours(0, 0, 0);
 
-    monthOffset = (selectDate.getFullYear() - new Date().getFullYear()) * 12;
-    monthOffset += selectDate.getMonth() - new Date().getMonth();
+    var today = new Date();
+
+    monthOffset = (selectDate.getFullYear() - today.getFullYear()) * 12;
+    monthOffset += selectDate.getMonth() - today.getMonth();
     settings.day = selectDate;
 
     // カレンダーを表示
