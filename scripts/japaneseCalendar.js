@@ -310,6 +310,12 @@
         case 4:
           if (day === 1) {
             annualFunctionName = "メーデー";
+          }
+          if (checkNijushiSekki(new Date(year, month, day - 87)) === "立春") {
+            if (day === 1) {
+              annualFunctionName += "／";
+            }
+            annualFunctionName += "八十八夜";
           } else if (date.getDay() === 0 &&
                      Math.floor((day - 1) / 7) + 1 === 2) {
             // 第2日曜
