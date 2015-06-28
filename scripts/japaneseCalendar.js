@@ -276,23 +276,9 @@
         case 1:
           if (day === 14) {
             annualFunctionName = "バレンタインデー";
-          } else {
-            // 立春を求める
-            var risshun = 0;
-            var lastDate = new Date(year, month, 0);
-
-            for (var i = 1, lastDay = lastDate.getDate(); i < lastDay; i++) {
-              var theDay = new Date(year, month, i);
-
-              if (checkNijushiSekki(theDay) === "立春") {
-                risshun = i;
-                break;
-              }
-            }
-
-            if (day === risshun - 1) {
-              annualFunctionName = "節分";
-            }
+          } else if (checkNijushiSekki(new Date(year, month,
+                                                day + 1)) === "立春") {
+            annualFunctionName = "節分";
           }
           break;
         case 2:
