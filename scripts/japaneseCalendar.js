@@ -448,20 +448,13 @@ $(document).ready(function() {
   //
 
   $("#selectYearMonth").click(function() {
-    // 今表示されているカレンダーの日付を初期値としてセット
     var viewDate = getOffsetDate();
     var viewDateString = viewDate.getFullYear() + "-";
 
-    if (viewDate.getMonth() < 9) {
-      viewDateString += "0" + (viewDate.getMonth() + 1) + "-";
-    } else {
-      viewDateString += (viewDate.getMonth() + 1) + "-";
-    }
-    if (viewDate.getDate() < 10) {
-      viewDateString += "0" + viewDate.getDate();
-    } else {
-      viewDateString += viewDate.getDate();
-    }
+    viewDateString += ("0" + (viewDate.getMonth() + 1)).substr(-2) + "-";
+    viewDateString += ("0" + viewDate.getDate()).substr(-2);
+
+    // 今表示されているカレンダーの日付を初期値としてセット
     $("#datePicker").val(viewDateString);
 
     // 日付入力欄にフォーカスを移動
@@ -495,10 +488,10 @@ $(document).ready(function() {
   //
 
   $("#about").click(function() {
+    var request = window.navigator.mozApps.getSelf();
+
     // 現在のスクロール位置を記憶
     scrollTopPosition = $(window).scrollTop();
-
-    var request = window.navigator.mozApps.getSelf();
 
     request.onsuccess = function() {
       if (request.result) {
