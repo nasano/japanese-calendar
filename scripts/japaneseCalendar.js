@@ -233,6 +233,27 @@
     }
 
     //
+    // 日の干支を計算
+    //
+
+    function etoDay(date) {
+      var etoList = ["寅", "卯", "辰", "巳", "午", "未",
+                     "申", "酉", "戌", "亥", "子", "丑"];
+      // ユリウス日
+      var JD = date.getJD() + 0.5;
+      // 修正ユリウス日
+      var MJD = JD - 2400000.5;
+
+      var modMJD = MJD % 12;
+
+      if (modMJD < 0) {
+        modMJD += 12;
+      }
+
+      return etoList[modMJD];
+    }
+
+    //
     // 二十四節気の判定
     // 参考：http://eco.mtk.nao.ac.jp/koyomi/faq/24sekki.html
     //
@@ -296,41 +317,45 @@
         case 4:
           if (day === 1) {
             annualFunctionName = "メーデー";
+          } else if (date.getDay() === 0 &&
+                     Math.floor((day - 1) / 7) + 1 === 2) {
+            // 第2日曜
+            annualFunctionName = "母の日";
           }
           if (checkNijushiSekki(new Date(year, month, day - 87)) === "立春") {
             if (day === 1) {
               annualFunctionName += "／";
             }
             annualFunctionName += "八十八夜";
-          } else if (date.getDay() === 0 &&
-                     Math.floor((day - 1) / 7) + 1 === 2) {
-            // 第2日曜
-            annualFunctionName = "母の日";
           }
           break;
         case 5:
-          if (Math.floor(longitudeSun(date)) === 79 &&
-              Math.floor(longitudeSun(new Date(year, month,
-                                               day + 1))) === 80) {
-            annualFunctionName = "入梅";
-          } else if (date.getDay() === 0 &&
+          if (date.getDay() === 0 &&
                      Math.floor((day - 1) / 7) + 1 === 3) {
             // 第3日曜
             annualFunctionName = "父の日";
+          } else if (Math.floor(longitudeSun(date)) === 79 &&
+                     Math.floor(longitudeSun(new Date(year, month,
+                                                      day + 1))) === 80) {
+            annualFunctionName = "入梅";
           }
           break;
         case 6:
-          if (Math.floor(longitudeSun(date)) === 99 &&
-              Math.floor(longitudeSun(new Date(year, month,
-                                               day + 1))) === 100) {
-            annualFunctionName = "半夏生";
-          } else  if (day === 7) {
+          if (day === 7) {
             annualFunctionName = "七夕";
+          } else if (Math.floor(longitudeSun(date)) === 99 &&
+                     Math.floor(longitudeSun(new Date(year, month,
+                                                      day + 1))) === 100) {
+            annualFunctionName = "半夏生";
+          } else if (longitudeSun(date) > 116 && etoDay(date) === "丑") {
+            annualFunctionName = "土用の丑の日";
           }
           break;
         case 7:
           if (day === 15) {
             annualFunctionName = "お盆(旧盆)";
+          } else if (longitudeSun(date) < 134 && etoDay(date) === "丑") {
+            annualFunctionName = "土用の丑の日";
           } else if (checkNijushiSekki(new Date(year, month,
                                                 day - 209)) === "立春") {
             annualFunctionName = "二百十日";
