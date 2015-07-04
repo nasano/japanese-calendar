@@ -1,5 +1,11 @@
 ;(function($) {
   //
+  // Strict モード
+  //
+
+  "use strict";
+
+  //
   // プラグイン化
   //
 
@@ -14,11 +20,12 @@
       "weekName": ["日", "月", "火", "水", "木", "金", "土"]
     }, options);
 
-    var startDay = 1 - new Date(settings.day.getFullYear(),
-                                settings.day.getMonth(), 1).getDay();
-    var lastDate = new Date(settings.day.getFullYear(),
-                            settings.day.getMonth() + 1, 0);
-    var endDay = 7 - lastDate.getDay();
+    // 0時0分0秒にしておく
+    settings.day.setHours(0, 0, 0);
+
+    var year = settings.day.getFullYear();
+    var month = settings.day.getMonth();
+    var lastDate = new Date(year, month + 1, 0);
 
     //
     // 現在表示されているカレンダーを消去
@@ -30,10 +37,9 @@
     // 年月を表示
     //
 
-    $(target).append('<div class="yearMonth">' + settings.day.getFullYear() +
-                     "年" + toJapaneseEra(settings.day.getFullYear(),
-                                          settings.day.getMonth() + 1) +
-                     (settings.day.getMonth() + 1) + "月</div>");
+    $(target).append('<div class="yearMonth">' + year + "年" +
+                     toJapaneseEra(year, month + 1) + (month + 1) +
+                     "月</div>");
 
     //
     // 曜日を表示
@@ -55,29 +61,31 @@
     var today = new Date();
     var todayString = today.getFullYear() + "/" + (today.getMonth() + 1) +
                       "/" + today.getDate();
+    var startDay = 1 - new Date(year, month, 1).getDay();
+    var endDay = 7 - lastDate.getDay();
+    var lastDay = lastDate.getDate();
     var dayOfWeekCount = 0;
 
     rowWeek = $('<div class="row"></div>');
 
-    for (var i = startDay, lastDay = lastDate.getDate(); i < lastDay + endDay;
-         i++) {
+    for (var i = startDay; i < lastDay + endDay; i++) {
       // 表示する月内でなければ空欄
       if (i < 1 || i > lastDay) {
         $(rowWeek).append('<div class="day day' + dayOfWeekCount +
                           '">&nbsp;</div>');
       } else {
-        var day = new Date(new Date(settings.day.getTime()).setDate(i));
+        var day = new Date(year, month, i);
         var dayString = day.getFullYear() + "/" + (day.getMonth() + 1) + "/" +
                         day.getDate();
         var holidayName = ktHolidayName(day);
         var className = "";
 
         // 日曜か祝日の場合
-        if (dayOfWeekCount == 0 || holidayName != "") {
+        if (dayOfWeekCount === 0 || holidayName !== "") {
           className += " holiday";
         }
         // 今日の場合
-        if (dayString == todayString) {
+        if (dayString === todayString) {
           className += " today";
         }
 
@@ -100,20 +108,19 @@
     //
 
     var dayList = $('<div class="dayList"></div>');
-
     var holidays = "";
 
-    for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
-      var day = new Date(new Date(settings.day.getTime()).setDate(i));
+    for (var i = 1; i <= lastDay; i++) {
+      var day = new Date(year, month, i);
       var holidayName = ktHolidayName(day);
 
-      if (holidayName != "") {
+      if (holidayName !== "") {
         holidays += i + "(" + settings.weekName[day.getDay()] + ") " +
                     holidayName + "<br>";
       }
     }
 
-    if (holidays != "") {
+    if (holidays !== "") {
       holidays = '<div class="holidayHead">祝日</div>' +
                  '<div class="holidayBody">' + holidays + "</div>";
       $(dayList).append(holidays);
@@ -123,22 +130,23 @@
     // 二十四節気一覧を表示
     //
 
-    var days24sekki = "";
+    var nijushiSekkiDays = "";
 
-    for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
-      var day = new Date(new Date(settings.day.getTime()).setDate(i));
-      var name24sekki = check24sekki(day);
+    for (var i = 1; i <= lastDay; i++) {
+      var day = new Date(year, month, i);
+      var nijushiSekkiName = checkNijushiSekki(day);
 
-      if (name24sekki != "") {
-        days24sekki += i + "(" + settings.weekName[day.getDay()] + ") " +
-                       name24sekki + "<br>";
+      if (nijushiSekkiName !== "") {
+        nijushiSekkiDays += i + "(" + settings.weekName[day.getDay()] + ") " +
+                            nijushiSekkiName + "<br>";
       }
     }
 
-    if (days24sekki != "") {
-      days24sekki = '<div class="head24sekki">二十四節気</div>' +
-                    '<div class="body24sekki">' + days24sekki + "</div>";
-      $(dayList).append(days24sekki);
+    if (nijushiSekkiDays !== "") {
+      nijushiSekkiDays = '<div class="nijushiSekkiHead">二十四節気</div>' +
+                         '<div class="nijushiSekkiBody">' + nijushiSekkiDays +
+                         "</div>";
+      $(dayList).append(nijushiSekkiDays);
     }
 
     //
@@ -147,17 +155,17 @@
 
     var annualFunctions = "";
 
-    for (var i = 1, lastDay = lastDate.getDate(); i <= lastDay; i++) {
-      var day = new Date(new Date(settings.day.getTime()).setDate(i));
+    for (var i = 1; i <= lastDay; i++) {
+      var day = new Date(year, month, i);
       var annualFunctionName = checkAnnualFunction(day);
 
-      if (annualFunctionName != "") {
+      if (annualFunctionName !== "") {
         annualFunctions += i + "(" + settings.weekName[day.getDay()] + ") " +
                            annualFunctionName + "<br>";
       }
     }
 
-    if (annualFunctions != "") {
+    if (annualFunctions !== "") {
       annualFunctions = '<div class="annualFunctionHead">年中行事</div>' +
                         '<div class="annualFunctionBody">' + annualFunctions +
                         "</div>";
@@ -176,7 +184,7 @@
 
       if (year >= 1990) {
         jaYear = "(平成" + (year - 1988) + "年)";
-      } else if (year == 1989) {
+      } else if (year === 1989) {
         if (month >= 1) {
           jaYear = "(平成元年)";
         } else {
@@ -184,7 +192,7 @@
         }
       } else if (year >= 1927) {
         jaYear = "(昭和" + (year - 1925) + "年)";
-      } else if (year == 1926) {
+      } else if (year === 1926) {
         if (month >= 12) {
           jaYear = "(昭和元年)";
         } else {
@@ -192,7 +200,7 @@
         }
       } else if (year >= 1913) {
         jaYear = "(大正" + (year - 1911) + "年)";
-      } else if (year == 1912) {
+      } else if (year === 1912) {
         if (month >= 7) {
           jaYear = "(大正元年)";
         } else {
@@ -200,7 +208,7 @@
         }
       } else if (year >= 1869) {
         jaYear = "(明治" + (year - 1867) + "年)";
-      } else if (year == 1868) {
+      } else if (year === 1868) {
         if (month >= 1) {
           jaYear = "(明治元年)";
         } else {
@@ -225,25 +233,44 @@
     }
 
     //
+    // 日の干支を計算
+    //
+
+    function etoDay(date) {
+      var etoList = ["寅", "卯", "辰", "巳", "午", "未",
+                     "申", "酉", "戌", "亥", "子", "丑"];
+      // ユリウス日
+      var JD = date.getJD() + 0.5;
+      // 修正ユリウス日
+      var MJD = JD - 2400000.5;
+
+      var modMJD = MJD % 12;
+
+      if (modMJD < 0) {
+        modMJD += 12;
+      }
+
+      return etoList[modMJD];
+    }
+
+    //
     // 二十四節気の判定
     // 参考：http://eco.mtk.nao.ac.jp/koyomi/faq/24sekki.html
     //
 
-    function check24sekki(day) {
-      var name24sekki = ["春分", "清明", "穀雨", "立夏", "小満", "芒種",
-                         "夏至", "小暑", "大暑", "立秋", "処暑", "白露",
-                         "秋分", "寒露", "霜降", "立冬", "小雪", "大雪",
-                         "冬至", "小寒", "大寒", "立春", "雨水", "啓蟄"];
+    function checkNijushiSekki(day) {
+      var nijushiSekkiList = ["春分", "清明", "穀雨", "立夏", "小満", "芒種",
+                              "夏至", "小暑", "大暑", "立秋", "処暑", "白露",
+                              "秋分", "寒露", "霜降", "立冬", "小雪", "大雪",
+                              "冬至", "小寒", "大寒", "立春", "雨水", "啓蟄"];
 
-      day.setHours(0, 0, 0);
       var nextDay = new Date(day.getFullYear(), day.getMonth(),
-                             day.getDate() + 1, 0, 0, 0);
-
+                             day.getDate() + 1);
       var dayLongitude = Math.floor(longitudeSun(day) / 15.0);
       var nextDayLongitude = Math.floor(longitudeSun(nextDay) / 15.0);
 
-      if (dayLongitude != nextDayLongitude) {
-        return name24sekki[nextDayLongitude];
+      if (dayLongitude !== nextDayLongitude) {
+        return nijushiSekkiList[nextDayLongitude];
       } else {
         return "";
       }
@@ -255,94 +282,107 @@
 
     function checkAnnualFunction(date) {
       var year = date.getFullYear();
-      var month = date.getMonth() + 1;
+      var month = date.getMonth();
       var day = date.getDate();
       var annualFunctionName = "";
 
       switch (month) {
-        case 1:
-          if (day == 7) {
+        case 0:
+          if (day === 7) {
             annualFunctionName = "七草";
-          } else if (day == 11) {
+          } else if (day === 11) {
             annualFunctionName = "鏡開き";
           }
           break;
-        case 2:
-          if (day == 14) {
+        case 1:
+          if (day === 14) {
             annualFunctionName = "バレンタインデー";
-          } else {
-            // 立春を求める
-            var risshun = 0;
-            var lastDate = new Date(year, month + 1, 0);
-            for (var i = 1, lastDay = lastDate.getDate(); i < lastDay; i++) {
-              var theDay = new Date(new Date(date.getTime()).setDate(i));
-              if (check24sekki(theDay) == "立春") {
-                risshun = i;
-                break;
-              }
-            }
-
-            if (day == risshun - 1) {
-              annualFunctionName = "節分";
-            }
+          } else if (checkNijushiSekki(new Date(year, month,
+                                                day + 1)) === "立春") {
+            annualFunctionName = "節分";
           }
           break;
-        case 3:
-          if (day == 3) {
+        case 2:
+          if (day === 3) {
             annualFunctionName = "雛祭り(桃の節句)";
-          } else if (day == 14) {
+          } else if (day === 14) {
             annualFunctionName = "ホワイトデー";
           }
           break;
-        case 4:
-          if (day == 1) {
+        case 3:
+          if (day === 1) {
             annualFunctionName = "エイプリルフール";
           }
           break;
-        case 5:
-          if (day == 1) {
+        case 4:
+          if (day === 1) {
             annualFunctionName = "メーデー";
-          } else {
+          } else if (date.getDay() === 0 &&
+                     Math.floor((day - 1) / 7) + 1 === 2) {
             // 第2日曜
-            if (date.getDay() == 0 && (Math.floor((day - 1) / 7) + 1) == 2) {
-              annualFunctionName = "母の日";
+            annualFunctionName = "母の日";
+          }
+          if (checkNijushiSekki(new Date(year, month, day - 87)) === "立春") {
+            if (day === 1) {
+              annualFunctionName += "／";
             }
+            annualFunctionName += "八十八夜";
+          }
+          break;
+        case 5:
+          if (date.getDay() === 0 &&
+                     Math.floor((day - 1) / 7) + 1 === 3) {
+            // 第3日曜
+            annualFunctionName = "父の日";
+          } else if (Math.floor(longitudeSun(date)) === 79 &&
+                     Math.floor(longitudeSun(new Date(year, month,
+                                                      day + 1))) === 80) {
+            annualFunctionName = "入梅";
           }
           break;
         case 6:
-          // 第3日曜
-          if (date.getDay() == 0 && (Math.floor((day - 1) / 7) + 1) == 3) {
-            annualFunctionName = "父の日";
+          if (day === 7) {
+            annualFunctionName = "七夕";
+          } else if (Math.floor(longitudeSun(date)) === 99 &&
+                     Math.floor(longitudeSun(new Date(year, month,
+                                                      day + 1))) === 100) {
+            annualFunctionName = "半夏生";
+          } else if (longitudeSun(date) > 116 && etoDay(date) === "丑") {
+            annualFunctionName = "土用の丑の日";
           }
           break;
         case 7:
-          if (day == 7) {
-            annualFunctionName = "七夕";
+          if (day === 15) {
+            annualFunctionName = "お盆(旧盆)";
+          } else if (longitudeSun(date) < 134 && etoDay(date) === "丑") {
+            annualFunctionName = "土用の丑の日";
+          } else if (checkNijushiSekki(new Date(year, month,
+                                                day - 209)) === "立春") {
+            annualFunctionName = "二百十日";
           }
           break;
         case 8:
-          if (day == 15) {
-            annualFunctionName = "お盆(旧盆)";
+          if (checkNijushiSekki(new Date(year, month,
+                                         day - 209)) === "立春") {
+            annualFunctionName = "二百十日";
           }
           break;
         case 9:
-          break;
-        case 10:
-          if (day == 31) {
+          if (day === 31) {
             annualFunctionName = "ハロウィン";
           }
           break;
-        case 11:
-          if (day == 15) {
+        case 10:
+          if (day === 15) {
             annualFunctionName = "七五三";
           }
           break;
-        case 12:
-          if (day == 24) {
+        case 11:
+          if (day === 24) {
             annualFunctionName = "クリスマス・イブ";
-          } else if (day == 25) {
+          } else if (day === 25) {
             annualFunctionName = "クリスマス";
-          } else if (day == 31) {
+          } else if (day === 31) {
             annualFunctionName = "大晦日";
           }
           break;
@@ -354,44 +394,64 @@
 })(jQuery);
 
 $(document).ready(function() {
+  //
+  // Strict モード
+  //
+
+  "use strict";
+
   var monthOffset = 0;
   var settings = {};
-  var swipeWidth = $("#calendar").width() / 6;
   var startPageX = 0;
   var startPageY = 0;
   var movePageX = 0;
   var movePageY = 0;
+  var scrollTopPosition = 0;
+  var swipeDistanceThreshold = Math.min($(window).width(),
+                                        $(window).height()) / 8;
 
+  //
   // カレンダーを表示
+  //
+
   $("#calendar").japaneseCalendar(settings);
 
+  //
   // 前月のカレンダーを表示
+  //
+
   $("#prev").click(function() {
     monthOffset--;
-    settings.day = getOffsetDate();
-    $("#calendar").japaneseCalendar(settings);
+    showCalendar();
   });
 
+  //
   // 次月のカレンダーを表示
+  //
+
   $("#next").click(function() {
     monthOffset++;
-    settings.day = getOffsetDate();
-    $("#calendar").japaneseCalendar(settings);
+    showCalendar();
   });
 
+  //
   // 今月のカレンダーを表示
+  //
+
   $("#today").click(function() {
     monthOffset = 0;
-    settings.day = getOffsetDate();
-    $("#calendar").japaneseCalendar(settings);
+    showCalendar();
   });
 
+  //
   // 表示するカレンダーの年月の選択を開始
-  $("#selectYearMonth").click(function() {
-    var viewDate = getOffsetDate();
+  //
 
+  $("#selectYearMonth").click(function() {
     // 今表示されているカレンダーの日付を初期値としてセット
+    var viewDate = getOffsetDate();
     var viewDateString = viewDate.getFullYear() + "-";
+
     if (viewDate.getMonth() < 9) {
       viewDateString += "0" + (viewDate.getMonth() + 1) + "-";
     } else {
@@ -408,7 +468,10 @@ $(document).ready(function() {
     $("#datePicker").focus();
   });
 
+  //
   // 選択された年月のカレンダーを表示
+  //
+
   $("#datePicker").blur(function() {
     // blur イベントが発生するのは「OK」か「キャンセル」が押された為なので
     // 日付入力欄の値を取得
@@ -417,20 +480,33 @@ $(document).ready(function() {
     // ハイフンで区切られた日付だと GMT+9 になるので修正
     selectDate.setHours(0, 0, 0);
 
-    monthOffset = (selectDate.getFullYear() - new Date().getFullYear()) * 12;
-    monthOffset += selectDate.getMonth() - new Date().getMonth();
+    var today = new Date();
+
+    monthOffset = (selectDate.getFullYear() - today.getFullYear()) * 12;
+    monthOffset += selectDate.getMonth() - today.getMonth();
     settings.day = selectDate;
 
     // カレンダーを表示
     $("#calendar").japaneseCalendar(settings);
   });
 
+  //
   // About ダイアログを表示
+  //
+
   $("#about").click(function() {
+    // 現在のスクロール位置を記憶
+    scrollTopPosition = $(window).scrollTop();
+
     var request = window.navigator.mozApps.getSelf();
+
     request.onsuccess = function() {
       if (request.result) {
         var manifest = request.result.manifest;
+        var gitHubURL = "https://github.com/nasano/japanese-calendar";
+        var marketplaceURL =
+              "https://marketplace.firefox.com/app/japanese-calendar";
+
         $("#aboutDialogContent").empty();
         $("#aboutDialogContent").append('<p><img class="appIcon" src="' +
                                         manifest.icons[512] + '"></p>');
@@ -441,17 +517,38 @@ $(document).ready(function() {
                                         "</p>");
         $("#aboutDialogContent").append("<p>作成者: " +
                                         manifest.developer.name + "</p>");
+        $("#aboutDialogContent").append('<p><a target="_blank" href="' +
+                                        manifest.developer.url +
+                                        '">ウェブサイト</a> | ' +
+                                        '<a target="_blank" href="' +
+                                        gitHubURL + '">GitHub</a> | ' +
+                                        '<a target="_blank" href="' +
+                                        marketplaceURL +
+                                        '">Firefox Marketplace</a></p>');
+
         $("#aboutDialog").fadeIn(200);
+
+        // About ダイアログのスクロール位置をトップに移動
+        $("#aboutDialog").scrollTop(0);
       }
     }
   });
 
+  //
   // About ダイアログを消去
+  //
+
   $("#close").click(function() {
+    // スクロール位置を復元
+    $(window).scrollTop(scrollTopPosition);
+
     $("#aboutDialog").fadeOut(200);
   });
 
+  //
   // スワイプでカレンダーを切り替え
+  //
+
   $("#calendar").on({
     "touchstart": function(e) {
       e.preventDefault();
@@ -468,33 +565,50 @@ $(document).ready(function() {
     },
 
     "touchend": function(e) {
-      if (startPageX - movePageX > swipeWidth) {
-        // 次月のカレンダーを表示
-        monthOffset++;
-        settings.day = getOffsetDate();
-        $("#calendar").japaneseCalendar(settings);
-      } else if (movePageX - startPageX > swipeWidth) {
-        // 前月のカレンダーを表示
-        monthOffset--;
-        settings.day = getOffsetDate();
-        $("#calendar").japaneseCalendar(settings);
-      } else if (startPageY - movePageY > swipeWidth) {
-        // 次年のカレンダーを表示
-        monthOffset = monthOffset + 12;
-        settings.day = getOffsetDate();
-        $("#calendar").japaneseCalendar(settings);
-      } else if (movePageY - startPageY > swipeWidth) {
-        // 前年のカレンダーを表示
-        monthOffset = monthOffset - 12;
-        settings.day = getOffsetDate();
-        $("#calendar").japaneseCalendar(settings);
+      if (Math.abs(startPageX - movePageX) >
+          Math.abs(startPageY - movePageY)) {
+        // 左右スワイプ
+        if (startPageX - movePageX > swipeDistanceThreshold) {
+          // 次月のカレンダーを表示
+          monthOffset++;
+          showCalendar();
+        } else if (movePageX - startPageX > swipeDistanceThreshold) {
+          // 前月のカレンダーを表示
+          monthOffset--;
+          showCalendar();
+        }
+      } else {
+        // 上下スワイプ
+        if (startPageY - movePageY > swipeDistanceThreshold) {
+          // 次年のカレンダーを表示
+          monthOffset += 12;
+          showCalendar();
+        } else if (movePageY - startPageY > swipeDistanceThreshold) {
+          // 前年のカレンダーを表示
+          monthOffset -= 12;
+          showCalendar();
+        }
       }
     }
   }, "#calendarBody");
 
+  //
   // 差分を計算した Date オブジェクトを取得
+  //
+
   function getOffsetDate() {
-    return new Date(new Date().getFullYear(),
-                    new Date().getMonth() + monthOffset, new Date().getDate());
+    var today = new Date();
+
+    return new Date(today.getFullYear(), today.getMonth() + monthOffset,
+                    today.getDate());
+  }
+
+  //
+  // カレンダーを表示
+  //
+
+  function showCalendar() {
+    settings.day = getOffsetDate();
+    $("#calendar").japaneseCalendar(settings);
   }
 });

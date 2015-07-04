@@ -104,67 +104,44 @@ body {
   background: #FFFFBB;
 }
 
-/* 一覧部 */
+/* 祝日・二十四節気・年中行事一覧 */
 
 .dayList {
   margin: 1em 0em;
 }
 
-/* 祝日一覧 */
+.holidayHead, .nijushiSekkiHead, .annualFunctionHead {
+  padding: 0.2em 0.5em;
+  text-align: left;
+  font-size: 11pt;
+}
+
+.holidayBody, .nijushiSekkiBody, .annualFunctionBody {
+  border-right: 1px solid #DDDDDD;
+  border-bottom: 1px solid #DDDDDD;
+  border-left: 1px solid #DDDDDD;
+  background: #FFFFFF;
+  padding: 0.2em 1.5em 0.5em 1.5em;
+  text-align: left;
+  font-size: 10pt;
+}
+
+/* 祝日一覧ヘッダ */
 
 .holidayHead {
   background: #F4B2B2;
-  padding: 0.2em 0.5em;
-  text-align: left;
-  font-size: 11pt;
 }
 
-.holidayBody {
-  border-right: 1px solid #DDDDDD;
-  border-bottom: 1px solid #DDDDDD;
-  border-left: 1px solid #DDDDDD;
-  background: #FFFFFF;
-  padding: 0.2em 1.5em 0.5em 1.5em;
-  text-align: left;
-  font-size: 10pt;
-}
+/* 二十四節気一覧ヘッダ */
 
-/* 二十四節気一覧 */
-
-.head24sekki {
+.nijushiSekkiHead {
   background: #B3DDF5;
-  padding: 0.2em 0.5em;
-  text-align: left;
-  font-size: 11pt;
 }
 
-.body24sekki {
-  border-right: 1px solid #DDDDDD;
-  border-bottom: 1px solid #DDDDDD;
-  border-left: 1px solid #DDDDDD;
-  background: #FFFFFF;
-  padding: 0.2em 1.5em 0.5em 1.5em;
-  text-align: left;
-  font-size: 10pt;
-}
-
-/* 年中行事一覧 */
+/* 年中行事一覧ヘッダ */
 
 .annualFunctionHead {
   background: #A5E1BD;
-  padding: 0.2em 0.5em;
-  text-align: left;
-  font-size: 11pt;
-}
-
-.annualFunctionBody {
-  border-right: 1px solid #DDDDDD;
-  border-bottom: 1px solid #DDDDDD;
-  border-left: 1px solid #DDDDDD;
-  background: #FFFFFF;
-  padding: 0.2em 1.5em 0.5em 1.5em;
-  text-align: left;
-  font-size: 10pt;
 }
 
 /* 要素を均等に配置する */
@@ -230,7 +207,9 @@ input.button:active {
 /* 日時入力欄を消す */
 
 input#datePicker {
-  margin-left: -100%;
+  width: 0em;
+  height: 0em;
+  border: none;
 }
 
 /* About ダイアログ */
@@ -247,6 +226,12 @@ input#datePicker {
   height: 100%;
   z-index: 1;
   text-align: center;
+}
+
+/* リンクをタップした時に出る点線を消す */
+
+#aboutDialog a {
+  outline: none;
 }
 
 .appIcon {
