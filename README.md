@@ -36,7 +36,7 @@
   * Aboutダイアログに各種リンクを追加。
   * Aboutダイアログを表示する際、カレンダーのスクロール位置を記憶・復元するようにした。  
     （参考：[.scrollTop() | jQuery API Documentation](https://api.jquery.com/scrollTop/)）
-  * Aboutダイアログのスクロール位置をトップに移動するようにした。 
+  * Aboutダイアログのスクロール位置をトップに移動するようにした。
   * Strictモードを使用するようにした。  
     （参考：[Strict モード - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Strict_mode)、  
     [“use strict”（厳格モード）を使うべきか？｜もっこりJavaScript｜ANALOGIC（アナロジック）](http://analogic.jp/use-strict/)）
