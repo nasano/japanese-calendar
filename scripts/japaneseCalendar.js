@@ -183,37 +183,34 @@
       var jaYear = "";
 
       if (year >= 1990) {
-        jaYear = "(平成" + (year - 1988) + "年)";
+        jaYear = "平成" + (year - 1988) + "年";
       } else if (year === 1989) {
-        if (month >= 1) {
-          jaYear = "(平成元年)";
-        } else {
-          jaYear = "(昭和" + (year - 1925) + "年)";
-        }
+        jaYear = "平成元年";
       } else if (year >= 1927) {
-        jaYear = "(昭和" + (year - 1925) + "年)";
+        jaYear = "昭和" + (year - 1925) + "年";
       } else if (year === 1926) {
         if (month >= 12) {
-          jaYear = "(昭和元年)";
+          jaYear = "昭和元年";
         } else {
-          jaYear = "(大正" + (year - 1911) + "年)";
+          jaYear = "大正" + (year - 1911) + "年";
         }
       } else if (year >= 1913) {
-        jaYear = "(大正" + (year - 1911) + "年)";
+        jaYear = "大正" + (year - 1911) + "年";
       } else if (year === 1912) {
         if (month >= 7) {
-          jaYear = "(大正元年)";
+          jaYear = "大正元年";
         } else {
-          jaYear = "(明治" + (year - 1867) + "年)";
+          jaYear = "明治" + (year - 1867) + "年";
         }
       } else if (year >= 1869) {
-        jaYear = "(明治" + (year - 1867) + "年)";
+        jaYear = "明治" + (year - 1867) + "年";
       } else if (year === 1868) {
-        if (month >= 1) {
-          jaYear = "(明治元年)";
-        } else {
-          jaYear = "";
-        }
+        jaYear = "明治元年";
+      }
+
+      // 括弧を付加
+      if (jaYear !== "") {
+        jaYear = "(" + jaYear + ")";
       }
 
       return jaYear;
