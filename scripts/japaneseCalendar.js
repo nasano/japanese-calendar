@@ -10,11 +10,7 @@
   //
 
   $.fn.japaneseCalendar = function(options) {
-    $.japaneseCalendar(this, options);
-    return this;
-  }
-
-  $.japaneseCalendar = function(target, options) {
+    var target = this;
     var settings = $.extend({
       "day": new Date(),
       "weekName": ["日", "月", "火", "水", "木", "金", "土"]
@@ -387,6 +383,9 @@
 
       return annualFunctionName;
     }
+
+    // メソッドチェーン対応
+    return this;
   };
 })(jQuery);
 
