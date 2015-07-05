@@ -407,10 +407,10 @@ $(document).ready(function() {
                                         $(window).height()) / 8;
 
   //
-  // カレンダーを表示
+  // 今日のカレンダーを表示
   //
 
-  $("#calendar").japaneseCalendar(settings);
+  showCalendar();
 
   //
   // 前月のカレンダーを表示
@@ -473,10 +473,9 @@ $(document).ready(function() {
 
     monthOffset = (selectDate.getFullYear() - today.getFullYear()) * 12;
     monthOffset += selectDate.getMonth() - today.getMonth();
-    settings.day = selectDate;
 
     // カレンダーを表示
-    $("#calendar").japaneseCalendar(settings);
+    showCalendar();
   });
 
   //
@@ -582,7 +581,7 @@ $(document).ready(function() {
   }, "#calendarBody");
 
   //
-  // 差分を計算した Date オブジェクトを取得
+  // 月差分を計算した Date オブジェクトを取得
   //
 
   function getOffsetDate() {
@@ -593,7 +592,7 @@ $(document).ready(function() {
   }
 
   //
-  // カレンダーを表示
+  // 月差分を計算してカレンダーを表示
   //
 
   function showCalendar() {
