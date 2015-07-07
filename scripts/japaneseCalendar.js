@@ -55,8 +55,10 @@
     //
 
     var today = new Date();
-    var todayString = today.getFullYear() + "/" + (today.getMonth() + 1) +
-                      "/" + today.getDate();
+    var todayYear = today.getFullYear();
+    var todayMonth = today.getMonth();
+    var todayDate = today.getDate();
+
     var startDay = 1 - new Date(year, month, 1).getDay();
     var endDay = 7 - lastDate.getDay();
     var lastDay = lastDate.getDate();
@@ -71,8 +73,6 @@
                           '">&nbsp;</div>');
       } else {
         var day = new Date(year, month, i);
-        var dayString = day.getFullYear() + "/" + (day.getMonth() + 1) + "/" +
-                        day.getDate();
         var holidayName = ktHolidayName(day);
         var className = "";
 
@@ -81,7 +81,7 @@
           className += " holiday";
         }
         // 今日の場合
-        if (dayString === todayString) {
+        if (todayYear === year && todayMonth === month && todayDate === i) {
           className += " today";
         }
 
@@ -109,10 +109,17 @@
     for (var i = 1; i <= lastDay; i++) {
       var day = new Date(year, month, i);
       var holidayName = ktHolidayName(day);
+      var className = "";
 
       if (holidayName !== "") {
-        holidays += i + "(" + settings.weekName[day.getDay()] + ") " +
-                    holidayName + "<br>";
+        // 今日の場合
+        if (todayYear === year && todayMonth === month && todayDate === i) {
+          className += " today";
+        }
+
+        holidays += '<span class="dayName' + className + '">' +
+                    i + "(" + settings.weekName[day.getDay()] + ") " +
+                    holidayName + "</span><br>";
       }
     }
 
@@ -131,10 +138,17 @@
     for (var i = 1; i <= lastDay; i++) {
       var day = new Date(year, month, i);
       var nijushiSekkiName = checkNijushiSekki(day);
+      var className = "";
 
       if (nijushiSekkiName !== "") {
-        nijushiSekkiDays += i + "(" + settings.weekName[day.getDay()] + ") " +
-                            nijushiSekkiName + "<br>";
+        // 今日の場合
+        if (todayYear === year && todayMonth === month && todayDate === i) {
+          className += " today";
+        }
+
+        nijushiSekkiDays += '<span class="dayName' + className + '">' +
+                            i + "(" + settings.weekName[day.getDay()] + ") " +
+                            nijushiSekkiName + "</span><br>";
       }
     }
 
@@ -154,10 +168,17 @@
     for (var i = 1; i <= lastDay; i++) {
       var day = new Date(year, month, i);
       var annualFunctionName = checkAnnualFunction(day);
+      var className = "";
 
       if (annualFunctionName !== "") {
-        annualFunctions += i + "(" + settings.weekName[day.getDay()] + ") " +
-                           annualFunctionName + "<br>";
+        // 今日の場合
+        if (todayYear === year && todayMonth === month && todayDate === i) {
+          className += " today";
+        }
+
+        annualFunctions += '<span class="dayName' + className + '">' +
+                           i + "(" + settings.weekName[day.getDay()] + ") " +
+                           annualFunctionName + "</span><br>";
       }
     }
 
