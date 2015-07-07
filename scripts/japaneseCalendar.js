@@ -100,58 +100,58 @@
     $(target).append($(calendarBody));
 
     //
-    // 祝日一覧を表示
+    // 祝日・二十四節気・年中行事の一覧を表示
     //
 
     var dayList = $('<div class="dayList"></div>');
+
     var holidays = "";
+    var nijushiSekkiDays = "";
+    var annualFunctions = "";
 
     for (var i = 1; i <= lastDay; i++) {
       var day = new Date(year, month, i);
-      var holidayName = ktHolidayName(day);
       var className = "";
 
-      if (holidayName !== "") {
-        // 今日の場合
-        if (todayYear === year && todayMonth === month && todayDate === i) {
-          className += " today";
-        }
+      var holidayName = ktHolidayName(day);
+      var nijushiSekkiName = checkNijushiSekki(day);
+      var annualFunctionName = checkAnnualFunction(day);
 
+      // 今日の場合
+      if (todayYear === year && todayMonth === month && todayDate === i) {
+        className += " today";
+      }
+
+      // 祝日の場合
+      if (holidayName !== "") {
         holidays += '<span class="dayName' + className + '">' +
                     i + "(" + settings.weekName[day.getDay()] + ") " +
                     holidayName + "</span><br>";
       }
+
+      // 二十四節気の場合
+      if (nijushiSekkiName !== "") {
+        nijushiSekkiDays += '<span class="dayName' + className + '">' +
+                            i + "(" + settings.weekName[day.getDay()] + ") " +
+                            nijushiSekkiName + "</span><br>";
+      }
+
+      // 年中行事の場合
+      if (annualFunctionName !== "") {
+        annualFunctions += '<span class="dayName' + className + '">' +
+                           i + "(" + settings.weekName[day.getDay()] + ") " +
+                           annualFunctionName + "</span><br>";
+      }
     }
 
+    // 祝日がある場合
     if (holidays !== "") {
       holidays = '<div class="holidayHead">祝日</div>' +
                  '<div class="holidayBody">' + holidays + "</div>";
       $(dayList).append(holidays);
     }
 
-    //
-    // 二十四節気一覧を表示
-    //
-
-    var nijushiSekkiDays = "";
-
-    for (var i = 1; i <= lastDay; i++) {
-      var day = new Date(year, month, i);
-      var nijushiSekkiName = checkNijushiSekki(day);
-      var className = "";
-
-      if (nijushiSekkiName !== "") {
-        // 今日の場合
-        if (todayYear === year && todayMonth === month && todayDate === i) {
-          className += " today";
-        }
-
-        nijushiSekkiDays += '<span class="dayName' + className + '">' +
-                            i + "(" + settings.weekName[day.getDay()] + ") " +
-                            nijushiSekkiName + "</span><br>";
-      }
-    }
-
+    // 二十四節気がある場合
     if (nijushiSekkiDays !== "") {
       nijushiSekkiDays = '<div class="nijushiSekkiHead">二十四節気</div>' +
                          '<div class="nijushiSekkiBody">' + nijushiSekkiDays +
@@ -159,29 +159,7 @@
       $(dayList).append(nijushiSekkiDays);
     }
 
-    //
-    // 年中行事一覧を表示
-    //
-
-    var annualFunctions = "";
-
-    for (var i = 1; i <= lastDay; i++) {
-      var day = new Date(year, month, i);
-      var annualFunctionName = checkAnnualFunction(day);
-      var className = "";
-
-      if (annualFunctionName !== "") {
-        // 今日の場合
-        if (todayYear === year && todayMonth === month && todayDate === i) {
-          className += " today";
-        }
-
-        annualFunctions += '<span class="dayName' + className + '">' +
-                           i + "(" + settings.weekName[day.getDay()] + ") " +
-                           annualFunctionName + "</span><br>";
-      }
-    }
-
+    // 年中行事がある場合
     if (annualFunctions !== "") {
       annualFunctions = '<div class="annualFunctionHead">年中行事</div>' +
                         '<div class="annualFunctionBody">' + annualFunctions +
