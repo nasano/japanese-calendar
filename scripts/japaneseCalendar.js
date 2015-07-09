@@ -12,15 +12,15 @@
   $.fn.japaneseCalendar = function(options) {
     var target = this;
     var settings = $.extend({
-      "day": new Date(),
+      "date": new Date(),
       "weekName": ["日", "月", "火", "水", "木", "金", "土"]
     }, options);
 
     // 0時0分0秒にしておく
-    settings.day.setHours(0, 0, 0);
+    settings.date.setHours(0, 0, 0);
 
-    var year = settings.day.getFullYear();
-    var month = settings.day.getMonth();
+    var year = settings.date.getFullYear();
+    var month = settings.date.getMonth();
     var lastDate = new Date(year, month + 1, 0);
 
     //
@@ -57,23 +57,22 @@
     var today = new Date();
     var todayYear = today.getFullYear();
     var todayMonth = today.getMonth();
-    var todayDate = today.getDate();
+    var todayDay = today.getDate();
 
-    var startDay = 1 - new Date(year, month, 1).getDay();
-    var endDay = 7 - lastDate.getDay();
+    var startDayOfWeek = 1 - new Date(year, month, 1).getDay();
+    var endDayOfWeek = 7 - lastDate.getDay();
     var lastDay = lastDate.getDate();
     var dayOfWeekCount = 0;
 
     rowWeek = $('<div class="row"></div>');
 
-    for (var i = startDay; i < lastDay + endDay; i++) {
+    for (var i = startDayOfWeek; i < lastDay + endDayOfWeek; i++) {
       // 表示する月内でなければ空欄
       if (i < 1 || i > lastDay) {
         $(rowWeek).append('<div class="day day' + dayOfWeekCount +
                           '">&nbsp;</div>');
       } else {
-        var day = new Date(year, month, i);
-        var holidayName = ktHolidayName(day);
+        var holidayName = ktHolidayName(new Date(year, month, i));
         var className = "";
 
         // 日曜か祝日の場合
@@ -81,7 +80,7 @@
           className += " holiday";
         }
         // 今日の場合
-        if (todayYear === year && todayMonth === month && todayDate === i) {
+        if (todayYear === year && todayMonth === month && todayDay === i) {
           className += " today";
         }
 
@@ -110,36 +109,36 @@
     var annualFunctions = "";
 
     for (var i = 1; i <= lastDay; i++) {
-      var day = new Date(year, month, i);
+      var date = new Date(year, month, i);
       var className = "";
 
-      var holidayName = ktHolidayName(day);
-      var nijushiSekkiName = checkNijushiSekki(day);
-      var annualFunctionName = checkAnnualFunction(day);
+      var holidayName = ktHolidayName(date);
+      var nijushiSekkiName = checkNijushiSekki(date);
+      var annualFunctionName = checkAnnualFunction(date);
 
       // 今日の場合
-      if (todayYear === year && todayMonth === month && todayDate === i) {
+      if (todayYear === year && todayMonth === month && todayDay === i) {
         className += " today";
       }
 
       // 祝日の場合
       if (holidayName !== "") {
         holidays += '<span class="dayName' + className + '">' +
-                    i + "(" + settings.weekName[day.getDay()] + ") " +
+                    i + "(" + settings.weekName[date.getDay()] + ") " +
                     holidayName + "</span><br>";
       }
 
       // 二十四節気の場合
       if (nijushiSekkiName !== "") {
         nijushiSekkiDays += '<span class="dayName' + className + '">' +
-                            i + "(" + settings.weekName[day.getDay()] + ") " +
+                            i + "(" + settings.weekName[date.getDay()] + ") " +
                             nijushiSekkiName + "</span><br>";
       }
 
       // 年中行事の場合
       if (annualFunctionName !== "") {
         annualFunctions += '<span class="dayName' + className + '">' +
-                           i + "(" + settings.weekName[day.getDay()] + ") " +
+                           i + "(" + settings.weekName[date.getDay()] + ") " +
                            annualFunctionName + "</span><br>";
       }
     }
@@ -250,19 +249,19 @@
     // 参考：http://eco.mtk.nao.ac.jp/koyomi/faq/24sekki.html
     //
 
-    function checkNijushiSekki(day) {
+    function checkNijushiSekki(date) {
       var nijushiSekkiList = ["春分", "清明", "穀雨", "立夏", "小満", "芒種",
                               "夏至", "小暑", "大暑", "立秋", "処暑", "白露",
                               "秋分", "寒露", "霜降", "立冬", "小雪", "大雪",
                               "冬至", "小寒", "大寒", "立春", "雨水", "啓蟄"];
 
-      var nextDay = new Date(day.getFullYear(), day.getMonth(),
-                             day.getDate() + 1);
-      var dayLongitude = Math.floor(longitudeSun(day) / 15.0);
-      var nextDayLongitude = Math.floor(longitudeSun(nextDay) / 15.0);
+      var nextDate = new Date(date.getFullYear(), date.getMonth(),
+                              date.getDate() + 1);
+      var dateLongitude = Math.floor(longitudeSun(date) / 15.0);
+      var nextDateLongitude = Math.floor(longitudeSun(nextDate) / 15.0);
 
-      if (dayLongitude !== nextDayLongitude) {
-        return nijushiSekkiList[nextDayLongitude];
+      if (dateLongitude !== nextDateLongitude) {
+        return nijushiSekkiList[nextDateLongitude];
       } else {
         return "";
       }
@@ -595,7 +594,7 @@ $(document).ready(function() {
   //
 
   function showCalendar() {
-    settings.day = getOffsetDate();
+    settings.date = getOffsetDate();
     $("#calendar").japaneseCalendar(settings);
   }
 });
