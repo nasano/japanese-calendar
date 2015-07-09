@@ -14,7 +14,7 @@ body {
 /* 年月 */
 
 .yearMonth {
-  font-size: 16pt;
+  font-size: 130%;
   width: 100%;
   height: 1.5em;
   margin-top: -2em;
@@ -37,7 +37,7 @@ body {
   border-left: 1px solid #F5F5F5;
   background: #FFFFFF;
   color: #000000;
-  font-size: 20pt;
+  font-size: 165%;
   font-weight: lighter;
   height: 1.3em;
   display: table-cell;
@@ -48,7 +48,7 @@ body {
 
 .weekName {
   background: #DDDDDD;
-  font-size: 12pt;
+  font-size: 100%;
   font-weight: normal;
   height: 1.5em;
 }
@@ -111,7 +111,7 @@ body {
 .holidayHead, .nijushiSekkiHead, .annualFunctionHead {
   padding: 0.2em 0.5em;
   text-align: left;
-  font-size: 11pt;
+  font-size: 95%;
 }
 
 .holidayBody, .nijushiSekkiBody, .annualFunctionBody {
@@ -122,7 +122,7 @@ body {
   padding: 0.2em 1em;
   margin-bottom: 0.3em;
   text-align: left;
-  font-size: 10pt;
+  font-size: 80%;
 }
 
 .dayName {
@@ -177,7 +177,7 @@ input.button {
   border-radius: 0.2em; 
   background: #FFFFFF;
   color: #000000;
-  font-size: 16pt;
+  font-size: 130%;
   height: 1.5em;
 }
 
@@ -244,7 +244,7 @@ input#datePicker {
 }
 
 .appName {
-  font-size: 16pt;
+  font-size: 130%;
 }
 
 .appHr {
