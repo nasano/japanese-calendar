@@ -47,8 +47,6 @@ body {
 /* 曜日名 */
 
 .weekName {
-  border-right: 1px solid #F5F5F5;
-  border-bottom: 1px solid #F5F5F5;
   background: #DDDDDD;
   font-size: 12pt;
   font-weight: normal;
