@@ -32,8 +32,8 @@ body {
 
 .weekName, .day {
   border-top: 1px solid #F5F5F5;
-  border-right: 1px solid #EEEEEE;
-  border-bottom: 1px solid #EEEEEE;
+  border-right: 1px solid #E9E9E9;
+  border-bottom: 1px solid #E9E9E9;
   border-left: 1px solid #F5F5F5;
   background: #FFFFFF;
   color: #000000;
@@ -109,15 +109,15 @@ body {
 }
 
 .holidayHead, .nijushiSekkiHead, .annualFunctionHead {
+  border-right: 1px solid #E9E9E9;
   padding: 0.2em 0.5em;
   text-align: left;
   font-size: 95%;
 }
 
 .holidayBody, .nijushiSekkiBody, .annualFunctionBody {
-  border-right: 1px solid #DDDDDD;
-  border-bottom: 1px solid #DDDDDD;
-  border-left: 1px solid #DDDDDD;
+  border-right: 1px solid #E9E9E9;
+  border-bottom: 1px solid #E9E9E9;
   background: #FFFFFF;
   padding: 0.2em 1em;
   margin-bottom: 0.3em;
