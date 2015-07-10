@@ -87,7 +87,7 @@ function prvHolidayChk(MyDate)
 
   if (MyDate.getTime() < cstImplementTheLawOfHoliday.getTime()) {
       return ""; // j“ú–@Ž{s(1948/7/20)ˆÈ‘O
-  }
+  } else;
 
   switch (MyMonth) {
 // ‚PŒŽ //
