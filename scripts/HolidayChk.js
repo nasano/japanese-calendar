@@ -23,9 +23,7 @@
 //
 // 2014/5/29  「山の日」の祝日法改正
 //
-// 2015/7/9   JavaScriptで扱える日付は1970/1/1～のみとして
-//            コメントアウトされていた部分を復活させた。
-//            by ASANO, Naoyuki (http://multi.nadenade.com/leafy/)
+// 2015/7/11  JavaScript1.3 以降では[1970/1/1]以前も扱えるため、日付範囲の制限を解除
 
 var MONDAY = 1;
 var TUESDAY = 2;
@@ -85,9 +83,9 @@ function prvHolidayChk(MyDate)
 
   var Result = "";
 
-  if (MyDate.getTime() < cstImplementTheLawOfHoliday.getTime()) {
-      return ""; // 祝日法施行(1948/7/20)以前
-  } else;
+ if (MyDate.getTime() < cstImplementTheLawOfHoliday.getTime()) {
+ 　　return ""; // 祝日法施行(1948/7/20)以前
+ } else;
 
   switch (MyMonth) {
 // １月 //
@@ -138,9 +136,9 @@ function prvHolidayChk(MyDate)
               }
           }
       } else {
-          if (MyDate.getTime() == cstAkihitoKekkon.getTime()) {
-              Result = "皇太子明仁親王の結婚の儀";　　// (=1959/4/10)
-          } else;
+           if (MyDate.getTime() == cstAkihitoKekkon.getTime()) {
+           　　Result = "皇太子明仁親王の結婚の儀";　　// (=1959/4/10)
+           } else;
       }
       break;
 // ５月 //
