@@ -102,7 +102,7 @@ body {
   background: #FFFFBB;
 }
 
-/* 祝日・二十四節気・年中行事一覧 */
+/* 国民の休日・二十四節気・年中行事一覧 */
 
 .dayList {
   margin: 1em 0em;
@@ -130,7 +130,7 @@ body {
   padding-left: 0.5em;
 }
 
-/* 祝日一覧ヘッダ */
+/* 国民の休日一覧ヘッダ */
 
 .holidayHead {
   background: #F4B2B2;
