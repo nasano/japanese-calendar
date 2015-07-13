@@ -75,7 +75,7 @@
         var holidayName = ktHolidayName(new Date(year, month, i));
         var className = "";
 
-        // 日曜か国民の休日の場合
+        // 日曜か休日の場合
         if (dayOfWeekCount === 0 || holidayName !== "") {
           className += " holiday";
         }
@@ -99,7 +99,7 @@
     $(target).append($(calendarBody));
 
     //
-    // 国民の休日・二十四節気・年中行事の一覧を表示
+    // 休日・二十四節気・年中行事の一覧を表示
     //
 
     var dayList = $('<div class="dayList"></div>');
@@ -121,7 +121,7 @@
         className += " today";
       }
 
-      // 国民の休日の場合
+      // 休日の場合
       if (holidayName !== "") {
         holidays += '<span class="dayName' + className + '">' +
                     i + "(" + settings.weekName[date.getDay()] + ") " +
@@ -143,9 +143,9 @@
       }
     }
 
-    // 国民の休日がある場合
+    // 休日がある場合
     if (holidays !== "") {
-      holidays = '<div class="holidayHead">国民の休日</div>' +
+      holidays = '<div class="holidayHead">休日</div>' +
                  '<div class="holidayBody">' + holidays + "</div>";
       $(dayList).append(holidays);
     }
