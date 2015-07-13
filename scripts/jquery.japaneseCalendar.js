@@ -298,6 +298,12 @@
             annualFunctionName = "雛祭り(桃の節句)";
           } else if (day === 14) {
             annualFunctionName = "ホワイトデー";
+          } else if (checkNijushiSekki(new Date(year, month,
+                                                day + 3)) === "春分") {
+            annualFunctionName = "彼岸の入り";
+          } else if (checkNijushiSekki(new Date(year, month,
+                                                day - 3)) === "春分") {
+            annualFunctionName = "彼岸明け";
           }
           break;
         case 3:
@@ -356,6 +362,12 @@
           if (checkNijushiSekki(new Date(year, month,
                                          day - 209)) === "立春") {
             annualFunctionName = "二百十日";
+          } else if (checkNijushiSekki(new Date(year, month,
+                                                day + 3)) === "秋分") {
+            annualFunctionName = "彼岸の入り";
+          } else if (checkNijushiSekki(new Date(year, month,
+                                                day - 3)) === "秋分") {
+            annualFunctionName = "彼岸明け";
           }
           break;
         case 9:
