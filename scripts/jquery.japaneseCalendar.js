@@ -102,8 +102,6 @@
     // 休日・二十四節気・年中行事の一覧を表示
     //
 
-    var dayList = $('<div class="dayList"></div>');
-
     var holidays = "";
     var nijushiSekkiDays = "";
     var annualFunctions = "";
@@ -146,28 +144,29 @@
 
     // 休日がある場合
     if (holidays !== "") {
-      holidays = '<div class="holidayHead">休日</div>' +
-                 '<div class="holidayBody">' + holidays + "</div>";
-      $(dayList).append(holidays);
+      holidays = '<div class="holidayList">' +
+                 '<div class="holidayHead">休日</div>' +
+                 '<div class="holidayBody">' + holidays + "</div></div>";
+      $(target).append(holidays);
     }
 
     // 二十四節気がある場合
     if (nijushiSekkiDays !== "") {
-      nijushiSekkiDays = '<div class="nijushiSekkiHead">二十四節気</div>' +
+      nijushiSekkiDays = '<div class="nijushiSekkiList">' +
+                         '<div class="nijushiSekkiHead">二十四節気</div>' +
                          '<div class="nijushiSekkiBody">' + nijushiSekkiDays +
-                         "</div>";
-      $(dayList).append(nijushiSekkiDays);
+                         "</div></div>";
+      $(target).append(nijushiSekkiDays);
     }
 
     // 年中行事がある場合
     if (annualFunctions !== "") {
-      annualFunctions = '<div class="annualFunctionHead">年中行事</div>' +
+      annualFunctions = '<div class="annualFunctionList">' +
+                        '<div class="annualFunctionHead">年中行事</div>' +
                         '<div class="annualFunctionBody">' + annualFunctions +
-                        "</div>";
-      $(dayList).append(annualFunctions);
+                        "</div></div>";
+      $(target).append(annualFunctions);
     }
-
-    $(target).append(dayList);
 
     //
     // 西暦を和暦に変換

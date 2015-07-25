@@ -103,19 +103,17 @@ body {
 
 /* 休日・二十四節気・年中行事一覧 */
 
-.dayList {
-  margin: 1em 0em;
+.holidayList, .nijushiSekkiList, .annualFunctionList {
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.05);
 }
 
 .holidayHead, .nijushiSekkiHead, .annualFunctionHead {
-  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.05);
   padding: 0.2em 0.5em;
   text-align: left;
   font-size: 90%;
 }
 
 .holidayBody, .nijushiSekkiBody, .annualFunctionBody {
-  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.05);
   background: #FFFFFF;
   padding: 0.2em 1em;
   margin-bottom: 0.3em;
@@ -132,6 +130,7 @@ body {
 
 .holidayHead {
   background: #F4B2B2;
+  margin-top: 1em;
 }
 
 /* 二十四節気一覧ヘッダ */
