@@ -110,6 +110,7 @@
 
     for (var i = 1; i <= lastDay; i++) {
       var date = new Date(year, month, i);
+      var dayOfWeek = date.getDay();
       var className = "";
 
       var holidayName = ktHolidayName(date);
@@ -124,21 +125,21 @@
       // 休日の場合
       if (holidayName !== "") {
         holidays += '<span class="dayName' + className + '">' +
-                    i + "(" + settings.weekName[date.getDay()] + ") " +
+                    i + "(" + settings.weekName[dayOfWeek] + ") " +
                     holidayName + "</span><br>";
       }
 
       // 二十四節気の場合
       if (nijushiSekkiName !== "") {
         nijushiSekkiDays += '<span class="dayName' + className + '">' +
-                            i + "(" + settings.weekName[date.getDay()] + ") " +
+                            i + "(" + settings.weekName[dayOfWeek] + ") " +
                             nijushiSekkiName + "</span><br>";
       }
 
       // 年中行事の場合
       if (annualFunctionName !== "") {
         annualFunctions += '<span class="dayName' + className + '">' +
-                           i + "(" + settings.weekName[date.getDay()] + ") " +
+                           i + "(" + settings.weekName[dayOfWeek] + ") " +
                            annualFunctionName + "</span><br>";
       }
     }
@@ -327,8 +328,7 @@
           }
           break;
         case 5:
-          if (date.getDay() === 0 &&
-                     Math.floor((day - 1) / 7) + 1 === 3) {
+          if (date.getDay() === 0 && Math.floor((day - 1) / 7) + 1 === 3) {
             // 第3日曜
             annualFunctionName = "父の日";
           } else if (Math.floor(longitudeSun(date)) === 79 &&
