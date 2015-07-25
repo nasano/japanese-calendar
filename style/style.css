@@ -4,11 +4,17 @@ body {
   background: #F5F5F5;
 }
 
-/* カレンダー部 */
+/* カレンダー・各一覧 */
 
 #calendar {
   font-family: sans-serif;
   text-align: center;
+}
+
+/* カレンダー日付 */
+
+#calendarBody {
+  margin-bottom: 0.8em;
 }
 
 /* 年月 */
@@ -130,7 +136,6 @@ body {
 
 .holidayHead {
   background: #F4B2B2;
-  margin-top: 1em;
 }
 
 /* 二十四節気一覧ヘッダ */
