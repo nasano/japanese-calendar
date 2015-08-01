@@ -107,6 +107,17 @@ body {
   background: #FFFFBB;
 }
 
+/* 表示している月以外 */
+
+.otherDay {
+  background: #FFFFFF;
+  color: #DDDDDD;
+}
+
+.otherDay.today {
+  background: #FFFFBB;
+}
+
 /* 休日・二十四節気・年中行事一覧 */
 
 .holidayList, .nijushiSekkiList, .annualFunctionList {

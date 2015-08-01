@@ -67,26 +67,28 @@
     rowWeek = $('<div class="row"></div>');
 
     for (var i = startDayOfWeek; i < lastDay + endDayOfWeek; i++) {
-      // 表示する月内でなければ空欄
-      if (i < 1 || i > lastDay) {
-        $(rowWeek).append('<div class="day day' + dayOfWeekCount +
-                          '">&nbsp;</div>');
-      } else {
-        var holidayName = ktHolidayName(new Date(year, month, i));
-        var className = "";
+      var iDate = new Date(year, month, i);
+      var iYear = iDate.getFullYear();
+      var iMonth = iDate.getMonth();
+      var iDay = iDate.getDate();
 
-        // 日曜か休日の場合
-        if (dayOfWeekCount === 0 || holidayName !== "") {
-          className += " holiday";
-        }
-        // 今日の場合
-        if (todayYear === year && todayMonth === month && todayDay === i) {
-          className += " today";
-        }
+      var className = "";
 
-        $(rowWeek).append('<div class="day day' + dayOfWeekCount + className +
-                          '">' + i + "</div>");
+      // 今日の場合
+      if (todayYear === iYear && todayMonth === iMonth && todayDay === iDay) {
+        className += " today";
       }
+
+      if (i < 1 || i > lastDay) {
+        // 表示している月以外の場合
+        className += " otherDay";
+      } else if (dayOfWeekCount === 0 || ktHolidayName(iDate) !== "") {
+        // 日曜か休日の場合
+        className += " holiday";
+      }
+
+      $(rowWeek).append('<div class="day day' + dayOfWeekCount + className +
+                        '">' + iDay + "</div>");
 
       // 週末で改行
       if (dayOfWeekCount++ > 5) {
