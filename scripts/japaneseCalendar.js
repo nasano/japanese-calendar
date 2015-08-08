@@ -31,7 +31,7 @@ $(document).ready(function() {
   });
 
   //
-  // 次月のカレンダーを表示
+  // 翌月のカレンダーを表示
   //
 
   $("#next").click(function() {
@@ -166,7 +166,7 @@ $(document).ready(function() {
           Math.abs(startPageY - movePageY)) {
         // 左右スワイプ
         if (startPageX - movePageX > swipeDistanceThreshold) {
-          // 次月のカレンダーを表示
+          // 翌月のカレンダーを表示
           monthOffset++;
           showCalendar();
         } else if (movePageX - startPageX > swipeDistanceThreshold) {
@@ -177,7 +177,7 @@ $(document).ready(function() {
       } else {
         // 上下スワイプ
         if (startPageY - movePageY > swipeDistanceThreshold) {
-          // 次年のカレンダーを表示
+          // 翌年のカレンダーを表示
           monthOffset += 12;
           showCalendar();
         } else if (movePageY - startPageY > swipeDistanceThreshold) {
