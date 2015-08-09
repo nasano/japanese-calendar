@@ -138,9 +138,22 @@ body {
   font-size: 80%;
 }
 
-.dayName {
-  padding-right: 0.5em;
-  padding-left: 0.5em;
+/* 各一覧の日付は右寄せにする */
+
+.holidayRow, .nijushiSekkiRow, .annualFunctionRow {
+  border-collapse: separate;
+  border-spacing: 0.5em 0em;
+  display: table;
+}
+
+.holidayDay, .nijushiSekkiDay, .annualFunctionDay {
+  display: table-cell;
+  text-align: right;
+  width: 2.6em;
+}
+
+.holidayName, .nijushiSekkiName, .annualFunctionName {
+  display: table-cell;
 }
 
 /* 休日一覧ヘッダ */

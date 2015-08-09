@@ -124,23 +124,29 @@
 
       // 休日の場合
       if (holidayName !== "") {
-        holidays += '<span class="dayName' + className + '">' +
-                    i + "(" + settings.weekName[dayOfWeek] + ") " +
-                    holidayName + "</span><br>";
+        holidays += '<div class="holidayRow' + className + '">' +
+                    '<span class="holidayDay">' + i +
+                    "(" + settings.weekName[dayOfWeek] + ")</span>" +
+                    '<span class="holidayName">' +
+                    holidayName + "</span></div>";
       }
 
       // 二十四節気の場合
       if (nijushiSekkiName !== "") {
-        nijushiSekkiDays += '<span class="dayName' + className + '">' +
-                            i + "(" + settings.weekName[dayOfWeek] + ") " +
-                            nijushiSekkiName + "</span><br>";
+        nijushiSekkiDays += '<div class="nijushiSekkiRow' + className + '">' +
+                            '<span class="nijushiSekkiDay">' + i +
+                            "(" + settings.weekName[dayOfWeek] + ")</span>" +
+                            '<span class="nijushiSekkiName">' +
+                            nijushiSekkiName + "</span></div>";
       }
 
       // 年中行事の場合
       if (annualFunctionName !== "") {
-        annualFunctions += '<span class="dayName' + className + '">' +
-                           i + "(" + settings.weekName[dayOfWeek] + ") " +
-                           annualFunctionName + "</span><br>";
+        annualFunctions += '<div class="annualFunctionRow' + className + '">' +
+                            '<span class="annualFunctionDay">' + i +
+                            "(" + settings.weekName[dayOfWeek] + ")</span>" +
+                            '<span class="annualFunctionName">' +
+                            annualFunctionName + "</span></div>";
       }
     }
 
