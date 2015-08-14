@@ -123,7 +123,7 @@ $(document).ready(function() {
                                         marketplaceURL +
                                         '">Firefox Marketplace</a></p>');
 
-        $("#aboutDialog").stop().fadeIn(300);
+        $("#aboutDialog").fadeIn(300);
 
         // About ダイアログのスクロール位置をトップに移動
         $("#aboutDialog").scrollTop(0);
@@ -139,7 +139,7 @@ $(document).ready(function() {
     // スクロール位置を復元
     $(window).scrollTop(scrollTopPosition);
 
-    $("#aboutDialog").stop().fadeOut(300);
+    $("#aboutDialog").fadeOut(300);
   });
 
   //
