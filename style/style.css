@@ -142,18 +142,20 @@ body {
 
 .holidayRow, .nijushiSekkiRow, .annualFunctionRow {
   border-collapse: separate;
-  border-spacing: 0.5em 0em;
+  border-spacing: 0em;
   display: table;
 }
 
 .holidayDay, .nijushiSekkiDay, .annualFunctionDay {
   display: table-cell;
   text-align: right;
-  width: 2.6em;
+  width: 3em;
+  padding-left: 0.3em;
 }
 
 .holidayName, .nijushiSekkiName, .annualFunctionName {
   display: table-cell;
+  padding: 0em 0.5em;
 }
 
 /* 休日一覧ヘッダ */
