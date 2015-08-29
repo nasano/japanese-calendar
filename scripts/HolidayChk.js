@@ -22,14 +22,15 @@
 // 2008/10/29 変数のvar指定が無く、広域変数扱いになっていたのを修正しました。
 //
 // 2014/5/29  「山の日」の祝日法改正
+//
+// 2015/7/11  JavaScript1.3 以降では[1970/1/1]以前も扱えるため、日付範囲の制限を解除
 
 var MONDAY = 1;
 var TUESDAY = 2;
 var WEDNESDAY = 3;
 
-// JavaScriptで扱える日付は1970/1/1～のみ
-//var cstImplementTheLawOfHoliday = new Date("1948/7/20");  // 祝日法施行
-//var cstAkihitoKekkon = new Date("1959/4/10");              // 明仁親王の結婚の儀
+var cstImplementTheLawOfHoliday = new Date("1948/7/20");  // 祝日法施行
+var cstAkihitoKekkon = new Date("1959/4/10");              // 明仁親王の結婚の儀
 var cstShowaTaiso = new Date("1989/2/24");                // 昭和天皇大喪の礼
 var cstNorihitoKekkon = new Date("1993/6/9");            // 徳仁親王の結婚の儀
 var cstSokuireiseiden = new Date("1990/11/12");          // 即位礼正殿の儀
@@ -82,10 +83,9 @@ function prvHolidayChk(MyDate)
 
   var Result = "";
 
-// JavaScriptで扱える日付は1970/1/1～のみで祝日法施行後なので下記は不要
-// if (MyDate.getTime() < cstImplementTheLawOfHoliday.getTime()) {
-// 　　return ""; // 祝日法施行(1948/7/20)以前
-// } else;
+ if (MyDate.getTime() < cstImplementTheLawOfHoliday.getTime()) {
+ 　　return ""; // 祝日法施行(1948/7/20)以前
+ } else;
 
   switch (MyMonth) {
 // １月 //
@@ -136,10 +136,9 @@ function prvHolidayChk(MyDate)
               }
           }
       } else {
-          // JavaScriptで扱える日付は1970/1/1～のみなので下記は不要
-          // if (MyDate.getTime() == cstAkihitoKekkon.getTime()) {
-          // 　　Result = "皇太子明仁親王の結婚の儀";　　// (=1959/4/10)
-          // } else;
+           if (MyDate.getTime() == cstAkihitoKekkon.getTime()) {
+           　　Result = "皇太子明仁親王の結婚の儀";　　// (=1959/4/10)
+           } else;
       }
       break;
 // ５月 //
