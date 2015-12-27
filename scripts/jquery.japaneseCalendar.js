@@ -33,9 +33,19 @@
     // 年月を表示
     //
 
-    $(target).append('<div class="yearMonth">' + year + "年" +
-                     toJapaneseEra(year, month + 1) + (month + 1) +
-                     "月</div>");
+    var jaYear = toJapaneseEra(year, month + 1);
+
+    if (jaYear !== "") {
+      jaYear += "年&#xFF65;";
+    }
+
+    $(target).append('<div class="yearMonth"><div class="yearRow">' +
+                     '<div class="yearMain">' + year + "年</div>" +
+                     '<div class="yearSub">' + jaYear + etoYear(year) +
+                     "</div></div>" +
+                     '<div class="monthRow"><div class="monthMain">' +
+                     (month + 1) + "月</div>" + '<div class="monthSub">' +
+                     toOldMonth(month) + "</div></div></div>");
 
     //
     // 曜日を表示
