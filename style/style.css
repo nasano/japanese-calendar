@@ -240,9 +240,10 @@ input.button:active {
 /* 日時入力欄を消す */
 
 input#datePicker {
+  border: none;
   width: 0em;
   height: 0em;
-  border: none;
+  margin-left: -10em;
 }
 
 /* About ダイアログ */
