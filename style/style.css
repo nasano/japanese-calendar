@@ -98,7 +98,8 @@ body {
 /* 休日 */
 
 .holiday {
-  background: #FAB0A2;
+  color: #FF0000;
+  background: #FED8D0;
 }
 
 /* 今日 */
