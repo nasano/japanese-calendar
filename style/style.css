@@ -39,7 +39,7 @@ body {
 /* 日付 */
 
 .weekName, .day {
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.05);
   background: #FFFFFF;
   color: #000000;
   font-size: 165%;
