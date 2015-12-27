@@ -214,6 +214,17 @@
     }
 
     //
+    // 新暦の月を旧暦の月に変換
+    //
+
+    function toOldMonth(month) {
+      var oldMonthList = ["睦月", "如月", "弥生", "卯月", "皐月", "水無月",
+                          "文月", "葉月", "長月", "神無月", "霜月", "師走"];
+
+      return oldMonthList[month];
+    }
+
+    //
     // 太陽黄経を計算
     //
 
