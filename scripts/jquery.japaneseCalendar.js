@@ -238,7 +238,18 @@
     }
 
     //
-    // 日の干支を計算
+    // 年の干支（十二支）を計算
+    //
+
+    function etoYear(year) {
+      var etoList = ["申", "酉", "戌", "亥", "子", "丑",
+                     "寅", "卯", "辰", "巳", "午", "未"];
+
+      return etoList[year % 12];
+    }
+
+    //
+    // 日の干支（十二支）を計算
     //
 
     function etoDay(date) {
