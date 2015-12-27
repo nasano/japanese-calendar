@@ -195,17 +195,11 @@ $(document).ready(function() {
 
   function getOffsetDate() {
     var today = new Date();
-    var todayDay = today.getDate();
 
-    // 今月でなければ日は1日にする
+    // 日は1日にする
     // 今日が3月31日の時、前月のカレンダーを表示しようとすると
     // 2月31日のカレンダーを表示しようとしてしまうため
-    if (monthOffset !== 0) {
-      todayDay = 1;
-    }
-
-    return new Date(today.getFullYear(), today.getMonth() + monthOffset,
-                    todayDay);
+    return new Date(today.getFullYear(), today.getMonth() + monthOffset, 1);
   }
 
   //

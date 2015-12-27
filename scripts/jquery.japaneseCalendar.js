@@ -33,9 +33,19 @@
     // 年月を表示
     //
 
-    $(target).append('<div class="yearMonth">' + year + "年" +
-                     toJapaneseEra(year, month + 1) + (month + 1) +
-                     "月</div>");
+    var jaYear = toJapaneseEra(year, month + 1);
+
+    if (jaYear !== "") {
+      jaYear += "年&#xFF65;";
+    }
+
+    $(target).append('<div class="yearMonth"><div class="yearRow">' +
+                     '<div class="yearMain">' + year + "年</div>" +
+                     '<div class="yearSub">' + jaYear + etoYear(year) +
+                     "</div></div>" +
+                     '<div class="monthRow"><div class="monthMain">' +
+                     (month + 1) + "月</div>" + '<div class="monthSub">' +
+                     toOldMonth(month) + "</div></div></div>");
 
     //
     // 曜日を表示
@@ -185,37 +195,43 @@
       var jaYear = "";
 
       if (year >= 1990) {
-        jaYear = "平成" + (year - 1988) + "年";
+        jaYear = "平成" + (year - 1988);
       } else if (year === 1989) {
-        jaYear = "平成元年";
+        jaYear = "平成元";
       } else if (year >= 1927) {
-        jaYear = "昭和" + (year - 1925) + "年";
+        jaYear = "昭和" + (year - 1925);
       } else if (year === 1926) {
         if (month >= 12) {
-          jaYear = "昭和元年";
+          jaYear = "昭和元";
         } else {
-          jaYear = "大正" + (year - 1911) + "年";
+          jaYear = "大正" + (year - 1911);
         }
       } else if (year >= 1913) {
-        jaYear = "大正" + (year - 1911) + "年";
+        jaYear = "大正" + (year - 1911);
       } else if (year === 1912) {
         if (month >= 7) {
-          jaYear = "大正元年";
+          jaYear = "大正元";
         } else {
-          jaYear = "明治" + (year - 1867) + "年";
+          jaYear = "明治" + (year - 1867);
         }
       } else if (year >= 1869) {
-        jaYear = "明治" + (year - 1867) + "年";
+        jaYear = "明治" + (year - 1867);
       } else if (year === 1868) {
-        jaYear = "明治元年";
-      }
-
-      // 括弧を付加
-      if (jaYear !== "") {
-        jaYear = "(" + jaYear + ")";
+        jaYear = "明治元";
       }
 
       return jaYear;
+    }
+
+    //
+    // 新暦の月を旧暦の月に変換
+    //
+
+    function toOldMonth(month) {
+      var oldMonthList = ["睦月", "如月", "弥生", "卯月", "皐月", "水無月",
+                          "文月", "葉月", "長月", "神無月", "霜月", "師走"];
+
+      return oldMonthList[month];
     }
 
     //
@@ -232,7 +248,18 @@
     }
 
     //
-    // 日の干支を計算
+    // 年の干支（十二支）を計算
+    //
+
+    function etoYear(year) {
+      var etoList = ["申", "酉", "戌", "亥", "子", "丑",
+                     "寅", "卯", "辰", "巳", "午", "未"];
+
+      return etoList[year % 12];
+    }
+
+    //
+    // 日の干支（十二支）を計算
     //
 
     function etoDay(date) {
