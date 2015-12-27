@@ -20,10 +20,37 @@ body {
 /* 年月 */
 
 .yearMonth {
-  font-size: 130%;
-  width: 100%;
+  display: table;
+  border-collapse: separate;
+  border-spacing: 1em 0em;
   height: 1.5em;
-  margin-top: -2em;
+  margin: -3.4em auto 0.5em auto;
+}
+
+/* 年の列 */
+
+.yearRow {
+  display: table-cell;
+  text-align: center;
+}
+
+/* 月の列 */
+
+.monthRow {
+  display: table-cell;
+  text-align: center;
+}
+
+/* 年月の主部 */
+
+.yearMain, .monthMain {
+  font-size: 155%;
+}
+
+/* 年月の副部 */
+
+.yearSub, .monthSub {
+  font-size: 90%;
 }
 
 /* 1週間の行 */
@@ -193,7 +220,7 @@ body {
 /* 月送りボタン */
 
 .navigationButton {
-  margin-top: -0.5em;
+  margin-top: -0.2em;
 }
 
 /* ボタン */
