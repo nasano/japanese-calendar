@@ -7,7 +7,8 @@
 
   * jQuery  
     <http://jquery.com/>  
-    (c) 2005, 2014 jQuery Foundation, Inc.
+    Copyright jQuery Foundation and other contributors  
+    Released under the MIT license
 
   * JavaScript 用祝日判定コード  
     <http://www.h3.dion.ne.jp/~sakatsu/index.htm>  
