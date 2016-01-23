@@ -6,7 +6,6 @@ $(document).ready(function() {
   "use strict";
 
   var monthOffset = 0;
-  var settings = {};
   var startPageX = 0;
   var startPageY = 0;
   var movePageX = 0;
@@ -75,7 +74,8 @@ $(document).ready(function() {
     // 日付入力欄の値を取得
     var selectDate = new Date($("#datePicker").val());
 
-    // ハイフンで区切られた日付だと GMT+9 になるので修正
+    // ハイフンで区切られた日付だと UTC と解釈される（9時間プラスされる）
+    // ので0時0分0秒に修正
     selectDate.setHours(0, 0, 0);
 
     var today = new Date();
@@ -207,7 +207,7 @@ $(document).ready(function() {
   //
 
   function showCalendar() {
-    settings.date = getOffsetDate();
+    var settings = { "date": getOffsetDate() };
     $("#calendar").japaneseCalendar(settings);
   }
 });
