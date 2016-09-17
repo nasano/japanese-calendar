@@ -118,6 +118,10 @@
     var nijushiSekkiDays = "";
     var annualFunctions = "";
 
+    var chushuYear = -1;
+    var chushuMonth = -1;
+    var chushuDay = -1;
+
     for (var i = 1; i <= lastDay; i++) {
       var date = new Date(year, month, i);
       var dayOfWeek = date.getDay();
@@ -312,6 +316,29 @@
       var day = date.getDate();
       var annualFunctionName = "";
 
+      // カレンダーの表示が切り替わる際に中秋の名月の日付を計算しておく
+      if (chushuYear !== year && chushuMonth !== month) {
+        chushuYear = year;
+        chushuMonth = month;
+
+        // 月初日の旧暦を調べる
+        var kyurekiFirstDay = new kyureki(new Date(year, month, 1).getJD());
+        // 月末日の旧暦を調べる
+        var kyurekiLastDay = new kyureki(new Date(year, month + 1, 0).getJD());
+
+        // 旧暦8月15日が新暦で何日になるか計算する
+        if (kyurekiFirstDay.month === 8) {
+          if (kyurekiFirstDay.day <= 15) {
+            chushuDay = (15 - kyurekiFirstDay.day) + day;
+          }
+        } else if (kyurekiLastDay.month === 8) {
+          if (kyurekiLastDay.day >= 15) {
+            chushuDay = new Date(year, month + 1, 0).getDate() -
+                        (kyurekiLastDay.day - 15);
+          }
+        }
+      }
+
       switch (month) {
         case 0:
           if (day === 7) {
@@ -402,10 +429,14 @@
           } else if (checkNijushiSekki(new Date(year, month,
                                                 day - 3)) === "秋分") {
             annualFunctionName = "彼岸明け";
+          } else if (chushuMonth === month && chushuDay === day) {
+            annualFunctionName = "中秋の名月(十五夜)";
           }
           break;
         case 9:
-          if (day === 31) {
+          if (chushuMonth === month && chushuDay === day) {
+            annualFunctionName = "中秋の名月(十五夜)";
+          } else if (day === 31) {
             annualFunctionName = "ハロウィン";
           }
           break;
