@@ -429,8 +429,12 @@
           } else if (checkNijushiSekki(new Date(year, month,
                                                 day - 3)) === "秋分") {
             annualFunctionName = "彼岸明け";
-          } else if (chushuMonth === month && chushuDay === day) {
-            annualFunctionName = "中秋の名月(十五夜)";
+          }
+          if (chushuMonth === month && chushuDay === day) {
+            if (annualFunctionName !== "") {
+              annualFunctionName += "／";
+            }
+            annualFunctionName += "中秋の名月(十五夜)";
           }
           break;
         case 9:
