@@ -118,7 +118,6 @@
     var nijushiSekkiDays = "";
     var annualFunctions = "";
 
-    var chushuYear = -1;
     var chushuMonth = -1;
     var chushuDay = -1;
 
@@ -317,8 +316,7 @@
       var annualFunctionName = "";
 
       // カレンダーの表示が切り替わる際に中秋の名月の日付を計算しておく
-      if (chushuYear !== year && chushuMonth !== month) {
-        chushuYear = year;
+      if (chushuMonth === -1) {
         chushuMonth = month;
 
         // 月初日の旧暦を調べる
