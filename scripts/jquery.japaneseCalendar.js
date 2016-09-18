@@ -342,7 +342,7 @@
       switch (month) {
         case 0:
           if (day === 7) {
-            annualFunctionName = "七草";
+            annualFunctionName = "七草の節句(人日)";
           } else if (day === 11) {
             annualFunctionName = "鏡開き";
           }
@@ -357,7 +357,7 @@
           break;
         case 2:
           if (day === 3) {
-            annualFunctionName = "雛祭り(桃の節句)";
+            annualFunctionName = "雛祭り(桃の節句・上巳)";
           } else if (day === 14) {
             annualFunctionName = "ホワイトデー";
           } else if (checkNijushiSekki(new Date(year, month,
@@ -376,6 +376,8 @@
         case 4:
           if (day === 1) {
             annualFunctionName = "メーデー";
+          } else if (day === 5) {
+            annualFunctionName = "菖蒲の節句(端午)";
           } else if (date.getDay() === 0 &&
                      Math.floor((day - 1) / 7) + 1 === 2) {
             // 第2日曜
@@ -420,6 +422,9 @@
           }
           break;
         case 8:
+          if (day === 9) {
+            annualFunctionName = "菊の節句(重陽)";
+          }
           if (checkNijushiSekki(new Date(year, month,
                                          day - 209)) === "立春") {
             annualFunctionName = "二百十日";
