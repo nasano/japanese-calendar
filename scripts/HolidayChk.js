@@ -2,7 +2,8 @@
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 //_/
 //_/ CopyRight(C) K.Tsunoda(AddinBox) 2001 All Rights Reserved.
-//_/ ( http://www.h3.dion.ne.jp/~sakatsu/index.htm )
+//_/ ( AddinBox  http://addinbox.sakura.ne.jp/index.htm )
+//_/ (   旧サイト  http://www.h3.dion.ne.jp/~sakatsu/index.htm )
 //_/
 //_/ この祝日判定コードは『Excel:kt関数アドイン』で使用している
 //_/ ＶＢＡマクロを[JavaScript]に移植したものです。

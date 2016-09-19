@@ -11,7 +11,7 @@
     Released under the MIT license
 
   * JavaScript 用祝日判定コード  
-    <http://www.h3.dion.ne.jp/~sakatsu/index.htm>  
+    <http://addinbox.sakura.ne.jp/index.htm>  
     CopyRight(C) K.Tsunoda(AddinBox) 2001 All Rights Reserved.
 
   * 旧暦計算 JavaScript(ECMAScript) Library "qreki.js"  
