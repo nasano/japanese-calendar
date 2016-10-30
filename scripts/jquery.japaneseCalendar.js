@@ -121,6 +121,9 @@
     var chushuMonth = -1;
     var chushuDay = -1;
 
+    var jusanyaMonth = -1;
+    var jusanyaDay = -1;
+
     for (var i = 1; i <= lastDay; i++) {
       var date = new Date(year, month, i);
       var dayOfWeek = date.getDay();
@@ -320,20 +323,36 @@
         chushuMonth = month;
 
         // 月初日の旧暦を調べる
-        var kyurekiFirstDay = new kyureki(new Date(year, month, 1).getJD());
+        var kyurekiFirstDate = new kyureki(new Date(year, month, 1).getJD());
         // 月末日の旧暦を調べる
-        var kyurekiLastDay = new kyureki(new Date(year, month + 1, 0).getJD());
+        var kyurekiLastDate = new kyureki(new Date(year, month + 1,
+                                                   0).getJD());
 
         // 旧暦8月15日が新暦で何日になるか計算する
-        if (kyurekiFirstDay.month === 8) {
-          if (kyurekiFirstDay.day <= 15) {
-            chushuDay = (15 - kyurekiFirstDay.day) + day;
-          }
-        } else if (kyurekiLastDay.month === 8) {
-          if (kyurekiLastDay.day >= 15) {
+        if (kyurekiFirstDate.month === 8 && kyurekiFirstDate.day <= 15) {
+            chushuDay = (15 - kyurekiFirstDate.day) + day;
+        } else if (kyurekiLastDate.month === 8 && kyurekiLastDate.day >= 15) {
             chushuDay = new Date(year, month + 1, 0).getDate() -
-                        (kyurekiLastDay.day - 15);
-          }
+                        (kyurekiLastDate.day - 15);
+        }
+      }
+
+      // カレンダーの表示が切り替わる際に十三夜の日付を計算しておく
+      if (jusanyaMonth === -1) {
+        jusanyaMonth = month;
+
+        // 月初日の旧暦を調べる
+        var kyurekiFirstDate = new kyureki(new Date(year, month, 1).getJD());
+        // 月末日の旧暦を調べる
+        var kyurekiLastDate = new kyureki(new Date(year, month + 1,
+                                                   0).getJD());
+
+        // 旧暦9月13日が新暦で何日になるか計算する
+        if (kyurekiFirstDate.month === 9 && kyurekiFirstDate.day <= 13) {
+            jusanyaDay = (13 - kyurekiFirstDate.day) + day;
+        } else if (kyurekiLastDate.month === 9 && kyurekiLastDate.day >= 13) {
+            jusanyaDay = new Date(year, month + 1, 0).getDate() -
+                         (kyurekiLastDate.day - 13);
         }
       }
 
@@ -443,12 +462,20 @@
         case 9:
           if (chushuMonth === month && chushuDay === day) {
             annualFunctionName = "中秋の名月(十五夜)";
-          } else if (day === 31) {
+          } else if (jusanyaMonth === month && jusanyaDay === day) {
+            annualFunctionName = "十三夜";
+          }
+          if (day === 31) {
+            if (annualFunctionName !== "") {
+              annualFunctionName += "／";
+            }
             annualFunctionName = "ハロウィン";
           }
           break;
         case 10:
-          if (day === 15) {
+          if (jusanyaMonth === month && jusanyaDay === day) {
+            annualFunctionName = "十三夜";
+          } else if (day === 15) {
             annualFunctionName = "七五三";
           }
           break;
