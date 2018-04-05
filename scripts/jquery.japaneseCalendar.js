@@ -353,6 +353,12 @@
           } else if (day === 11) {
             annualFunctionName = "鏡開き";
           }
+          if (checkNijushiSekki(new Date(year, month, day)) === "小寒") {
+            if (annualFunctionName !== "") {
+              annualFunctionName += "／";
+            }
+            annualFunctionName += "寒の入り";
+          }
           break;
         case 1:
           if (day === 14) {
@@ -360,6 +366,9 @@
           } else if (checkNijushiSekki(new Date(year, month,
                                                 day + 1)) === "立春") {
             annualFunctionName = "節分";
+          } else if (checkNijushiSekki(new Date(year, month,
+                                                day)) === "立春") {
+            annualFunctionName = "寒の明け";
           }
           break;
         case 2:
@@ -459,7 +468,7 @@
             if (annualFunctionName !== "") {
               annualFunctionName += "／";
             }
-            annualFunctionName = "ハロウィン";
+            annualFunctionName += "ハロウィン";
           }
           break;
         case 10:
