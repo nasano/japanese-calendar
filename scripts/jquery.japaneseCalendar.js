@@ -318,27 +318,9 @@
       var day = date.getDate();
       var annualFunctionName = "";
 
-      // カレンダーの表示が切り替わる際に中秋の名月の日付を計算しておく
-      if (chushuMonth === -1) {
+      // カレンダーの表示が切り替わる際に旧暦を計算しておく
+      if (chushuMonth === -1 || jusanyaMonth === -1) {
         chushuMonth = month;
-
-        // 月初日の旧暦を調べる
-        var kyurekiFirstDate = new kyureki(new Date(year, month, 1).getJD());
-        // 月末日の旧暦を調べる
-        var kyurekiLastDate = new kyureki(new Date(year, month + 1,
-                                                   0).getJD());
-
-        // 旧暦8月15日が新暦で何日になるか計算する
-        if (kyurekiFirstDate.month === 8 && kyurekiFirstDate.day <= 15) {
-            chushuDay = (15 - kyurekiFirstDate.day) + day;
-        } else if (kyurekiLastDate.month === 8 && kyurekiLastDate.day >= 15) {
-            chushuDay = new Date(year, month + 1, 0).getDate() -
-                        (kyurekiLastDate.day - 15);
-        }
-      }
-
-      // カレンダーの表示が切り替わる際に十三夜の日付を計算しておく
-      if (jusanyaMonth === -1) {
         jusanyaMonth = month;
 
         // 月初日の旧暦を調べる
@@ -347,7 +329,15 @@
         var kyurekiLastDate = new kyureki(new Date(year, month + 1,
                                                    0).getJD());
 
-        // 旧暦9月13日が新暦で何日になるか計算する
+        // 旧暦8月15日が新暦で何日になるか計算する（中秋の名月）
+        if (kyurekiFirstDate.month === 8 && kyurekiFirstDate.day <= 15) {
+            chushuDay = (15 - kyurekiFirstDate.day) + day;
+        } else if (kyurekiLastDate.month === 8 && kyurekiLastDate.day >= 15) {
+            chushuDay = new Date(year, month + 1, 0).getDate() -
+                        (kyurekiLastDate.day - 15);
+        }
+
+        // 旧暦9月13日が新暦で何日になるか計算する（十三夜）
         if (kyurekiFirstDate.month === 9 && kyurekiFirstDate.day <= 13) {
             jusanyaDay = (13 - kyurekiFirstDate.day) + day;
         } else if (kyurekiLastDate.month === 9 && kyurekiLastDate.day >= 13) {
