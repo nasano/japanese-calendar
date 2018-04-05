@@ -2,18 +2,19 @@
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 //_/
 //_/ CopyRight(C) K.Tsunoda(AddinBox) 2001 All Rights Reserved.
-//_/ ( AddinBox  http://addinbox.sakura.ne.jp/index.htm )
-//_/ (   ‹ŒƒTƒCƒg  http://www.h3.dion.ne.jp/~sakatsu/index.htm )
+//_/ ( http://addinbox.sakura.ne.jp/index.htm )
+//_/ ( ‹ŒƒTƒCƒg  http://www.h3.dion.ne.jp/~sakatsu/index.htm )
 //_/
 //_/ ‚±‚Ìj“ú”»’èƒR[ƒh‚ÍwExcel:ktŠÖ”ƒAƒhƒCƒ“x‚ÅŽg—p‚µ‚Ä‚¢‚é
 //_/ ‚u‚a‚`ƒ}ƒNƒ‚ð[JavaScript]‚ÉˆÚA‚µ‚½‚à‚Ì‚Å‚·B
-//_/ ‚±‚ÌŠÖ”‚Å‚ÍA‚Q‚O‚P‚U”NŽ{s‚Ì‰ü³j“ú–@(ŽR‚Ì“ú)‚Ü‚Å‚ð
+//_/
+//_/ ‚±‚ÌŠÖ”‚Å‚ÍA‚Q‚O‚P‚X”NŽ{s‚Ì‰ü³j“ú–@(“Vc’a¶“ú‚Ì•ÏX)‚Ü‚Å‚ð
 //_/ ƒTƒ|[ƒg‚µ‚Ä‚¢‚Ü‚·B
 //_/
 //_/ (*1)‚±‚ÌƒR[ƒh‚ðˆø—p‚·‚é‚É“–‚½‚Á‚Ä‚ÍA•K‚¸‚±‚ÌƒRƒƒ“ƒg‚à
 //_/ ˆê‚Éˆø—p‚·‚éŽ–‚Æ‚µ‚Ü‚·B
 //_/ (*2)‘¼ƒTƒCƒgã‚Å–{ƒ}ƒNƒ‚ð’¼Úˆø—p‚·‚éŽ–‚ÍA‚²‰“—¶Šè‚¢‚Ü‚·B
-//_/ y http://www.h3.dion.ne.jp/~sakatsu/holiday_logic.htm z
+//_/ y http://addinbox.sakura.ne.jp/holiday_logic.htm z
 //_/ ‚Ö‚ÌƒŠƒ“ƒN‚É‚æ‚éÐ‰î‚Å‘Î‰ž‚µ‚Ä‰º‚³‚¢B
 //_/ (*3)[ktHolidayName]‚Æ‚¢‚¤ŠÖ”–¼‚»‚Ì‚à‚Ì‚ÍAŠeŽ©‚ÌŠÂ‹«‚É
 //_/ ‚¨‚¯‚é–½–¼‹K‘¥‚É‰ˆ‚Á‚Ä•ÏX‚µ‚Ä‚à\‚¢‚Ü‚¹‚ñB
@@ -25,6 +26,8 @@
 // 2014/5/29  uŽR‚Ì“úv‚Ìj“ú–@‰ü³
 //
 // 2015/7/11  JavaScript1.3 ˆÈ~‚Å‚Í[1970/1/1]ˆÈ‘O‚àˆµ‚¦‚é‚½‚ßA“ú•t”ÍˆÍ‚Ì§ŒÀ‚ð‰ðœ
+//
+// 2018/2/15 u“Vc’a¶“ú‚Ì•ÏXi12/23 Ë 2/23j‚Ìj“ú–@‰ü³
 
 var MONDAY = 1;
 var TUESDAY = 2;
@@ -113,9 +116,15 @@ function prvHolidayChk(MyDate)
               Result = "Œš‘‹L”O‚Ì“ú";
           } else;
       } else {
-          if (MyDate.getTime() == cstShowaTaiso.getTime()) {
-              Result = "º˜a“Vc‚Ì‘å‘r‚Ì—ç";
-          } else;
+          if (MyDay == 23) {
+              if (MyYear >= 2020) {
+                  Result = "“Vc’a¶“ú";
+              } else;
+          } else {
+              if (MyDate.getTime() == cstShowaTaiso.getTime()) {
+                  Result = "º˜a“Vc‚Ì‘å‘r‚Ì—ç";
+              } else;
+          }
       }
       break;
 // ‚RŒŽ //
@@ -133,7 +142,7 @@ function prvHolidayChk(MyDate)
               if (MyYear >= 1989) {
                   Result = "‚Ý‚Ç‚è‚Ì“ú";
               } else {
-                Result = "“Vc’a¶“ú";
+                Result = "“Vc’a¶“ú";  // º˜a“Vc
               }
           }
       } else {
@@ -260,8 +269,8 @@ function prvHolidayChk(MyDate)
 // ‚P‚QŒŽ //
   case 12:
       if (MyDay == 23) {
-          if (MyYear >= 1989) {
-              Result = "“Vc’a¶“ú";
+          if ((MyYear >= 1989) && (MyYear <= 2018)) {
+              Result = "“Vc’a¶“ú";     // •½¬“Vc
           } else;
       } else;
       break;
