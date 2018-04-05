@@ -200,7 +200,15 @@
     function toJapaneseEra(year, month) {
       var jaYear = "";
 
-      if (year >= 1990) {
+      if (year >= 2020) {
+        jaYear = "？？" + (year - 2018);
+      } else if (year === 2019) {
+        if (month >= 5) {
+          jaYear = "？？元";
+        } else {
+          jaYear = "平成" + (year - 1988);
+        }
+      } else if (year >= 1990) {
         jaYear = "平成" + (year - 1988);
       } else if (year === 1989) {
         jaYear = "平成元";
